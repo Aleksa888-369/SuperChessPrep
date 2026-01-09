@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Super Chess Prep</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #111, #1c1c1c);
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+      padding: 15px 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+
+    .circle-logo {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(45deg, #ff8c00, #ffd700, #ff6347) border-box;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 140, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
+    }
+
+    .back-link {
+      color: #ff8c00;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border: 2px solid #ff8c00;
+      border-radius: 25px;
+      transition: all 0.3s;
+    }
+
+    .back-link:hover {
+      background: rgba(255, 140, 0, 0.1);
+      transform: scale(1.05);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .auth-container {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 20px;
+      padding: 50px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .auth-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      background: linear-gradient(45deg, #ff8c00, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .auth-subtitle {
+      color: #ffbfaa;
+      font-size: 16px;
+    }
+
+    .error-message,
+    .success-message {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .error-message {
+      background: rgba(255, 99, 71, 0.2);
+      border: 1px solid #ff6347;
+      color: #ff6347;
+    }
+
+    .success-message {
+      background: rgba(0, 255, 127, 0.2);
+      border: 1px solid #00ff7f;
+      color: #00ff7f;
+    }
+
+    .error-message.show,
+    .success-message.show {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      color: #ff8c00;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 8px;
+      color: #f5f5f5;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #ff8c00;
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+    }
+
+    .password-hint {
+      font-size: 12px;
+      color: #cc7055;
+      margin-top: 5px;
+    }
+
+    .form-button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(45deg, #ff8c00, #ff6347);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .form-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 140, 0, 0.4);
+    }
+
+    .form-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-link {
+      text-align: center;
+      margin-top: 25px;
+      color: #ffbfaa;
+      font-size: 14px;
+    }
+
+    .form-link a {
+      color: #ff8c00;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Email Verification */
+    .verify-container {
+      display: none;
+    }
+
+    .verify-container.show {
+      display: block;
+    }
+
+    .code-inputs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .code-input {
+      width: 55px;
+      height: 70px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      border-radius: 10px;
+      color: #ff8c00;
+      transition: all 0.3s;
+    }
+
+    .code-input:focus {
+      outline: none;
+      border-color: #ff8c00;
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.3);
+    }
+
+    .resend-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #ffbfaa;
+      font-size: 13px;
+    }
+
+    .resend-link a {
+      color: #ff8c00;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .resend-link a:hover {
+      text-decoration: underline;
+    }
+
+    .expiry-notice {
+      text-align: center;
+      color: #ff6347;
+      font-size: 13px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(255, 140, 0, 0.3);
+      background: #111;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .footer-italic {
+      font-style: italic;
+      color: #ff8c00;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .auth-container {
+        padding: 30px 20px;
+      }
+      
+      .auth-title {
+        font-size: 28px;
+      }
+      
+      .code-input {
+        width: 45px;
+        height: 60px;
+        font-size: 24px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="/css/core.min.css">
+  <script defer src="/js/config.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="auth-container">
+      <div class="auth-header">
+        <h1 class="auth-title">Join Super Chess Prep</h1>
+        <p class="auth-subtitle">Create your account and start learning</p>
+      </div>
+
+      <div class="error-message" id="errorMessage"></div>
+      <div class="success-message" id="successMessage"></div>
+
+      <!-- PASSWORDLESS Registration Form - USERNAME AND EMAIL ONLY -->
+      <form id="registerForm" class="register-container">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-input" id="username" required minlength="4" maxlength="20">
+          <p class="password-hint">4-20 characters, letters and numbers only</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" id="email" required>
+          <p class="password-hint">You'll receive a 5-digit verification code</p>
+        </div>
+
+        <button type="submit" class="form-button" id="registerBtn">Create Account</button>
+
+        <div class="form-link">
+          Already have an account?
+          <a href="/login">Login</a>
+        </div>
+      </form>
+
+      <!-- Email Verification - 5 DIGITS -->
+      <div id="verifyContainer" class="verify-container">
+        <p style="text-align: center; color: #ffbfaa; margin-bottom: 10px;">
+          Enter the 5-digit code sent to your email
+        </p>
+        <p style="text-align: center; color: #ff8c00; font-weight: 600; margin-bottom: 10px;" id="emailDisplay"></p>
+        <p class="expiry-notice">⏰ Code expires in 3 minutes</p>
+
+        <form id="verifyForm">
+          <div class="code-inputs">
+            <!-- 5 INPUT FIELDS instead of 6 -->
+            <input type="text" class="code-input" maxlength="1" id="code1" oninput="moveToNext(this, 'code2')">
+            <input type="text" class="code-input" maxlength="1" id="code2" oninput="moveToNext(this, 'code3')">
+            <input type="text" class="code-input" maxlength="1" id="code3" oninput="moveToNext(this, 'code4')">
+            <input type="text" class="code-input" maxlength="1" id="code4" oninput="moveToNext(this, 'code5')">
+            <input type="text" class="code-input" maxlength="1" id="code5">
+          </div>
+
+          <button type="submit" class="form-button" id="verifyBtn">Verify Email</button>
+
+          <div class="resend-link">
+            Didn't receive code?
+            <a onclick="resendCode()">Resend</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-italic">Powered by Pier Dreams</p>
+  </footer>
+
+  <script src="/js/auth-client.js"></script>
+  <script>
+    const registerForm = document.getElementById('registerForm');
+    const verifyContainer = document.getElementById('verifyContainer');
+    const verifyForm = document.getElementById('verifyForm');
+    
+    let tempEmail = '';
+
+    // Show error message
+    function showError(message) {
+      const el = document.getElementById('errorMessage');
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    // Show success message
+    function showSuccess(message) {
+      const el = document.getElementById('successMessage');
+      el.textContent = message;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 5000);
+    }
+
+    // Clear messages
+    function clearMessages() {
+      document.getElementById('errorMessage').classList.remove('show');
+      document.getElementById('successMessage').classList.remove('show');
+    }
+
+    // Move to next input
+    function moveToNext(current, nextId) {
+      if (current.value.length === 1) {
+        const next = document.getElementById(nextId);
+        if (next) next.focus();
+      }
+    }
+
+    // Validate username
+    function validateUsername(username) {
+      const regex = /^[a-zA-Z0-9]+$/;  // Samo slova and brojevi
+      return regex.test(username);
+    }
+
+    // PASSWORDLESS - Handle registration form submission (USERNAME AND EMAIL ONLY)
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMessages();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      // Validate username
+      if (!validateUsername(username)) {
+        showError('Username can only contain letters and numbers');
+        return;
+      }
+
+      tempEmail = email;
+
+      const btn = document.getElementById('registerBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending code...';
+
+      try {
+        // PASSWORDLESS - Sends only username and email (no password!)
+        const result = await AuthAPI.register(username, email);
+
+        if (result.success && result.tempToken) {
+          // Show verification form
+          registerForm.style.display = 'none';
+          verifyContainer.classList.add('show');
+          document.getElementById('emailDisplay').textContent = email;
+          document.getElementById('code1').focus();
+          showSuccess('Verification code sent! Check your email. Code expires in 3 minutes.');
+        } else {
+          throw new Error(result.error || 'Registration failed');
+        }
+      } catch (error) {
+        showError(error.message || 'Registration failed. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    });
+
+    // Handle verification form submission (5 DIGITS instead of 6)
+    verifyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearMessages();
+
+      // 5 DIGITS (code1, code2, code3, code4, code5)
+      const code = ['code1', 'code2', 'code3', 'code4', 'code5']
+        .map(id => document.getElementById(id).value)
+        .join('');
+
+      if (code.length !== 5) {
+        showError('Please enter all 5 digits');
+        return;
+      }
+
+      const btn = document.getElementById('verifyBtn');
+      btn.disabled = true;
+      btn.textContent = 'Verifying...';
+
+      try {
+        const result = await AuthAPI.verifyEmail(code);
+
+        if (result.success) {
+          showSuccess('Account verified! Redirecting to homepage...');
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 1500);
+        }
+      } catch (error) {
+        showError(error.message || 'Verification failed. Please try again.');
+        // Clear code inputs
+        ['code1', 'code2', 'code3', 'code4', 'code5'].forEach(id => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('code1').focus();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Verify Email';
+      }
+    });
+
+    // Resend code
+    async function resendCode() {
+      clearMessages();
+      try {
+        await AuthAPI.resendVerification(tempEmail);
+        showSuccess('New code sent! Check your email. Code expires in 3 minutes.');
+      } catch (error) {
+        showError('Failed to resend code. Please try again.');
+      }
+    }
+
+    // Check if already logged in
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (Auth.isAuthenticated()) {
+        window.location.href = '/';
+      }
+    });
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+</body>
+</html>

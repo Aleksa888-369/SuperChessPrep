@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Management - Admin Panel</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎥</text></svg>">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/admin/videos/admin-videos.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+<script src="/js/auth-helper.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="55" height="55">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/admin" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Admin Panel</span>
+        </a>
+        <a href="/dashboard" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Dashboard</span>
+        </a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img loading="lazy" src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">🎥 Video Management</h1>
+      <p class="page-subtitle">Upload and manage chess video lessons</p>
+    </div>
+
+    <!-- Video Statistics Cards -->
+    <div class="stats-container" id="statsContainer">
+      <div class="stat-card">
+        <div class="stat-icon">📹</div>
+        <div class="stat-info">
+          <div class="stat-label">Total Videos</div>
+          <div class="stat-value" id="totalVideos">0</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">💾</div>
+        <div class="stat-info">
+          <div class="stat-label">Total Size</div>
+          <div class="stat-value" id="totalSize">0 MB</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-info">
+          <div class="stat-label">Active Videos</div>
+          <div class="stat-value" id="activeVideos">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <h2 class="section-title">📤 Upload Video</h2>
+      
+      <form id="uploadForm" enctype="multipart/form-data">
+        
+        <!-- File Input -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">🎬</span>
+            <span>Select Video File</span>
+            <span class="label-required">*</span>
+          </label>
+          <input 
+            type="file" 
+            id="videoFile" 
+            name="video" 
+            accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm"
+            required
+            class="file-input">
+          <div class="file-info" id="fileInfo">
+            <span>No file selected</span>
+            <span class="file-size" id="fileSize"></span>
+          </div>
+          <small class="form-hint">Supported formats: MP4, MOV, AVI, MKV, WEBM (Max 5GB)</small>
+        </div>
+
+        <!-- Title Input -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">📋</span>
+            <span>Video Title</span>
+            <span class="label-required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="videoTitle" 
+            name="title" 
+            class="form-input"
+            placeholder="e.g., Sicilian Defense Masterclass"
+            maxlength="255"
+            required>
+        </div>
+
+        <!-- Description Input -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">📄</span>
+            <span>Description</span>
+          </label>
+          <textarea 
+            id="videoDescription" 
+            name="description" 
+            class="form-textarea"
+            placeholder="Brief description of the video content..."
+            maxlength="2000"
+            rows="4"></textarea>
+          <small class="form-hint" id="charCount">0 / 2000 characters</small>
+        </div>
+
+        <!-- Tier Selection -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">👎</span>
+            <span>Required Subscription Tier</span>
+            <span class="label-required">*</span>
+          </label>
+          <select id="requiredTier" name="requiredTier" class="form-select" required>
+            <option value="basic">♙ Basic</option>
+            <option value="premium" selected>♘ Premium</option>
+            <option value="elite">♔ Elite</option>
+          </select>
+          <small class="form-hint">Users must have this tier or higher to access the video</small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="uploadBtn">
+          <span class="btn-icon">📤</span>
+          <span>Upload Video</span>
+        </button>
+
+      </form>
+
+      <!-- Upload Progress -->
+      <div id="uploadProgress" class="upload-progress" style="display: none;">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+          <span id="progressPercent">0%</span>
+          <span id="progressStatus">Uploading...</span>
+        </div>
+      </div>
+
+      <!-- Upload Results -->
+      <div id="uploadResults" class="upload-results"></div>
+
+    </div>
+
+    <!-- Videos List Section -->
+    <div class="list-section">
+      <div class="section-header">
+        <h2 class="section-title">📋 Manage Videos</h2>
+        <button onclick="refreshVideos()" class="refresh-btn">
+          <span>🔄</span>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="🔍 Search videos..."
+          onkeyup="filterVideos()">
+        
+        <select id="filterTier" class="filter-select" onchange="filterVideos()">
+          <option value="">All Tiers</option>
+          <option value="basic">♙ Basic</option>
+          <option value="premium">♘ Premium</option>
+          <option value="elite">♔ Elite</option>
+        </select>
+        
+        <select id="filterStatus" class="filter-select" onchange="filterVideos()">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <!-- Loading -->
+      <div id="tableLoading" class="table-loading">
+        <div class="loading-spinner"></div>
+        <p>Loading videos...</p>
+      </div>
+
+      <!-- Videos Table (List View) -->
+      <div class="table-container" id="tableContainer" style="display: none;">
+        <table class="videos-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Tier</th>
+              <th>Size</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="videosTableBody">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Results -->
+      <div id="noResults" class="no-results" style="display: none;">
+        <div class="no-results-icon">🔭</div>
+        <p>No videos found</p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>✏️ Edit Video</h3>
+        <button onclick="closeEditModal()" class="close-btn">✕</button>
+      </div>
+      <form id="editForm">
+        <input type="hidden" id="editVideoId">
+        
+        <div class="form-group">
+          <label class="form-label">Title</label>
+          <input type="text" id="editTitle" class="form-input" required maxlength="255">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea id="editDescription" class="form-textarea" rows="4" maxlength="2000"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Required Tier</label>
+          <select id="editTier" class="form-select">
+            <option value="basic">♙ Basic</option>
+            <option value="premium">♘ Premium</option>
+            <option value="elite">♔ Elite</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label checkbox-label">
+            <input type="checkbox" id="editActive" checked>
+            <span>Active (visible to users)</span>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" onclick="closeEditModal()" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal custom-delete-modal" style="display: none;">
+    <div class="modal-content delete-modal-content">
+      <div class="delete-icon-container">
+        <div class="delete-icon">⚠️</div>
+      </div>
+      <h3 class="delete-title">Delete Video?</h3>
+      <p class="delete-message">
+        This will permanently delete the video file and all associated data.
+      </p>
+      <div class="delete-modal-actions">
+        <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
+        <button onclick="confirmDelete()" class="btn-delete">Delete Video</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div id="customAlertModal" class="modal custom-alert-modal" style="display: none;">
+    <div class="modal-content custom-alert-content">
+      <div class="alert-icon" id="alertIcon">ℹ️</div>
+      <div class="alert-title" id="alertTitle">Alert</div>
+      <div class="alert-message" id="alertMessage">Message goes here</div>
+      <button onclick="closeCustomAlert()" class="alert-btn">OK</button>
+    </div>
+  </div>
+
+  <script src="/admin/videos/admin-videos.js?v=3"></script>
+
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+</body>
+</html>

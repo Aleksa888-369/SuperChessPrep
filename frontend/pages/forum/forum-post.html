@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Discussion - SuperChessPrep</title>
+  <link rel="icon" href="/images/circle-logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 140, 0, 0.1);
+      border-left: 4px solid #ff8c00;
+      border-radius: 8px;
+    }
+
+    .header h1 {
+      color: #ff8c00;
+      font-size: 28px;
+    }
+
+    .btn-back {
+      padding: 10px 20px;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: #ff7700;
+      transform: translateY(-2px);
+    }
+
+    /* Main Post Section */
+    .main-post {
+      background: rgba(255, 140, 0, 0.05);
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #ff8c00;
+    }
+
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .post-author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .post-author {
+      color: #ff8c00;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .post-date {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .post-content {
+      color: #e0e0e0;
+      line-height: 1.8;
+      font-size: 15px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin-bottom: 15px;
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      color: #999;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 140, 0, 0.1);
+    }
+
+    /* Comment Creation Form */
+    .create-comment-section {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .create-comment-section h3 {
+      color: #ff8c00;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #ff8c00;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #ff8c00;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .btn-submit {
+      padding: 10px 20px;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: #ff7700;
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Comments Section */
+    .comments-section {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .comments-section h3 {
+      color: #ff8c00;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .comment-item {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border-left: 3px solid rgba(255, 140, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .comment-item:hover {
+      background: rgba(0, 0, 0, 0.7);
+      border-left-color: #ff8c00;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .comment-author {
+      color: #ff8c00;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .comment-date {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .comment-content {
+      color: #d0d0d0;
+      line-height: 1.6;
+      font-size: 14px;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .comment-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-delete-comment {
+      padding: 6px 12px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-delete-comment:hover {
+      background: #dc2626;
+      transform: translateY(-1px);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 140, 0, 0.2);
+      border-top: 3px solid #ff8c00;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid #ef4444;
+      color: #ff6b6b;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .topic-closed-notice {
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid #ef4444;
+      color: #ff6b6b;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+  <link rel="stylesheet" href="/css/core_min.css">
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+  <div class="container">
+    <div class="header">
+      <h1>💬 Discussion</h1>
+      <button class="btn-back" onclick="history.back()">← Back to Topic</button>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>Loading discussion...</p>
+    </div>
+
+    <div id="error" class="error" style="display: none;"></div>
+
+    <div id="content" style="display: none;">
+      <!-- Main Post -->
+      <div id="mainPost" class="main-post"></div>
+      
+      <!-- Comment Creation Form -->
+      <div id="createCommentSection" class="create-comment-section">
+        <h3>💬 Add Comment</h3>
+        <form id="createCommentForm">
+          <div class="form-group">
+            <label for="commentContent">Your Comment <span style="color: #ef4444;">*</span></label>
+            <textarea 
+              id="commentContent" 
+              placeholder="Share your thoughts on this post..."
+              maxlength="2000"
+              required></textarea>
+            <small class="form-hint">Minimum 5 characters, maximum 2000 characters</small>
+          </div>
+          <button type="submit" class="btn-submit">💬 Post Comment</button>
+        </form>
+      </div>
+
+      <!-- Comments Section -->
+      <div id="commentsSection" class="comments-section"></div>
+    </div>
+  </div>
+
+  <!-- Load Custom Modals -->
+  <script src="/js/custom-modals.js"></script>
+
+  <!-- Load Auth -->
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+
+  <script>
+    // CONFIG
+    const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000' 
+    : '';  // prazan string for produkciju = relativni URL
+    const postId = new URLSearchParams(window.location.search).get('id');
+    let currentPost = null;
+    let currentUser = null;
+    let authToken = null;
+
+    console.log('=== FORUM POST PAGE ===');
+    console.log('Post ID:', postId);
+    console.log('API Base:', API_BASE);
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', async () => {
+      console.log('📄 Page loaded');
+      
+      if (!postId) {
+        showErrorDiv('No post ID provided');
+        return;
+      }
+
+      // Check if Auth exists
+      if (typeof Auth === 'undefined') {
+        Logger.warn('⚠️ Auth not yet loaded, waiting...');
+        setTimeout(loadPage, 500);
+      } else {
+        loadPage();
+      }
+    });
+
+    async function loadPage() {
+      try {
+        console.log('🔐 Checking authentication...');
+        
+        if (!Auth.isLoggedIn()) {
+          if (typeof showError === 'function') {
+            await showError('You must be logged in to view this page');
+          }
+          window.location.href = '/login';
+          return;
+        }
+
+        console.log('✅ Authenticated');
+        
+        // Get current user
+        currentUser = Auth.getCurrentUser();
+        console.log('👤 Current user:', currentUser);
+        
+        // Get token
+        authToken = localStorage.getItem('auth_token')
+          || localStorage.getItem('accessToken')
+          || localStorage.getItem('session_token')
+          || localStorage.getItem('token');
+
+        if (!authToken) {
+          Logger.warn('⚠️ No token found');
+        } else {
+          console.log('✅ Token found');
+        }
+
+        // Load post and comments
+        await loadPostAndComments();
+        
+        // Setup comment form
+        setupCommentForm();
+
+      } catch (err) {
+        Logger.error('❌ Error:', err);
+        showErrorDiv('Error loading page: ' + err.message);
+      }
+    }
+
+    async function loadPostAndComments() {
+      try {
+        console.log('📂 Loading post and comments...');
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
+
+        // Get post
+        const postRes = await fetch(`${API_BASE}/api/forum/posts/${postId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+          }
+        });
+
+        if (!postRes.ok) {
+          throw new Error(`Failed to fetch post: ${postRes.status}`);
+        }
+
+        const postData = await postRes.json();
+        currentPost = postData.post;
+        console.log('✅ Post loaded:', currentPost);
+
+        // ✅ Check if topic is closed
+        const isTopicClosed = currentPost.topic_is_closed || false;
+        console.log('🔒 Topic closed status:', isTopicClosed);
+
+        // Get comments
+        const commentsRes = await fetch(`${API_BASE}/api/forum/posts/${postId}/comments`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+          }
+        });
+
+        if (!commentsRes.ok) {
+          throw new Error(`Failed to fetch comments: ${commentsRes.status}`);
+        }
+
+        const commentsData = await commentsRes.json();
+        console.log('✅ Comments loaded:', commentsData.comments.length);
+
+        document.getElementById('loading').style.display = 'none';
+        renderPostAndComments(currentPost, commentsData.comments || [], isTopicClosed);
+
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        Logger.error('❌ Load error:', err);
+        showErrorDiv('Error loading post: ' + err.message);
+      }
+    }
+
+    function renderPostAndComments(post, comments, isTopicClosed) {
+      console.log('🎨 Rendering post and comments');
+      console.log('🔍 Topic closed:', isTopicClosed);
+
+      // Render main post
+      document.getElementById('mainPost').innerHTML = `
+        <div class="post-header">
+          <div class="post-author-info">
+            <span class="post-author">${escapeHtml(post.username || 'Anonymous')}</span>
+            <span class="post-date">${new Date(post.created_at).toLocaleString()}</span>
+          </div>
+        </div>
+        <div class="post-content">${escapeHtml(post.content)}</div>
+        <div class="post-meta">
+          <span>💬 ${post.comment_count || 0} comments</span>
+          <span>📅 ${new Date(post.created_at).toLocaleDateString()}</span>
+        </div>
+      `;
+
+      // Get elements
+      const createCommentSection = document.getElementById('createCommentSection');
+      const commentsSection = document.getElementById('commentsSection');
+      
+      // Remove any existing notice
+      const existingNotice = document.querySelector('.topic-closed-notice');
+      if (existingNotice) {
+        existingNotice.remove();
+      }
+
+      if (isTopicClosed) {
+        // ❌ TOPIC CLOSED: Hide comment FORM only, but SHOW existing comments
+        createCommentSection.style.display = 'none';
+        commentsSection.style.display = 'block';
+        
+        console.log('🔒 Topic closed - hiding comment form, showing existing comments');
+        
+        // Show closed notice BEFORE comments section
+        const notice = document.createElement('div');
+        notice.className = 'topic-closed-notice';
+        notice.innerHTML = '🔒 <strong>This topic is closed.</strong> New comments cannot be added.';
+        const content = document.getElementById('content');
+        content.insertBefore(notice, commentsSection);
+        
+        // STILL render existing comments!
+        renderComments(comments);
+      } else {
+        // ✅ TOPIC OPEN: Show everything
+        createCommentSection.style.display = 'block';
+        commentsSection.style.display = 'block';
+        
+        console.log('✅ Topic open - showing all comment sections');
+        
+        renderComments(comments);
+      }
+
+      document.getElementById('content').style.display = 'block';
+      console.log('✅ Rendering complete');
+    }
+
+    function renderComments(comments) {
+      const commentsSection = document.getElementById('commentsSection');
+      
+      if (comments.length > 0) {
+        commentsSection.innerHTML = `
+          <h3>💬 Comments (${comments.length})</h3>
+          ${comments.map(comment => {
+            const canDelete = currentUser && (currentUser.id === comment.user_id || currentUser.role === 'admin');
+            
+            return `
+              <div class="comment-item">
+                <div class="comment-header">
+                  <span class="comment-author">${escapeHtml(comment.username || 'Anonymous')}</span>
+                  <span class="comment-date">${new Date(comment.created_at).toLocaleString()}</span>
+                </div>
+                <div class="comment-content">${escapeHtml(comment.content)}</div>
+                ${canDelete ? `
+                  <div class="comment-actions">
+                    <button class="btn-delete-comment" onclick="deleteComment('${comment.id}')">
+                      🗑️ Delete
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            `;
+          }).join('')}
+        `;
+      } else {
+        commentsSection.innerHTML = `
+          <h3>💬 Comments (0)</h3>
+          <div class="empty">No comments yet. Be the first to comment!</div>
+        `;
+      }
+    }
+
+    function setupCommentForm() {
+      const form = document.getElementById('createCommentForm');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          await handleCreateComment();
+        });
+      }
+    }
+
+    async function handleCreateComment() {
+      const content = document.getElementById('commentContent').value.trim();
+      
+      if (content.length < 5) {
+        if (typeof showWarning === 'function') {
+          await showWarning('Comment must be at least 5 characters');
+        } else {
+          alert('Comment must be at least 5 characters');
+        }
+        return;
+      }
+
+      if (!authToken) {
+        if (typeof showError === 'function') {
+          await showError('You must be logged in to comment');
+        } else {
+          alert('You must be logged in to comment');
+        }
+        return;
+      }
+
+      // Extra check: prevent commenting on closed topics
+      const isTopicClosed = currentPost.topic_is_closed || false;
+      if (isTopicClosed) {
+        if (typeof showError === 'function') {
+          await showError('This topic is closed. New comments cannot be added.');
+        } else {
+          alert('This topic is closed. New comments cannot be added.');
+        }
+        return;
+      }
+
+      const submitBtn = document.querySelector('.btn-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting...';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/forum/posts/${postId}/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({ content })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || errorData.error || 'Failed to create comment');
+        }
+
+        const data = await response.json();
+        console.log('✅ Comment created:', data);
+
+        // Clear form
+        document.getElementById('commentContent').value = '';
+        
+        // Reload post and comments
+        await loadPostAndComments();
+        
+        if (typeof showSuccess === 'function') {
+          await showSuccess('Comment posted successfully!');
+        } else {
+          alert('✅ Comment posted successfully!');
+        }
+
+      } catch (err) {
+        Logger.error('❌ Error creating comment:', err);
+        if (typeof showError === 'function') {
+          await showError('Error creating comment: ' + err.message);
+        } else {
+          alert('❌ Error: ' + err.message);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '💬 Post Comment';
+      }
+    }
+
+    async function deleteComment(commentId) {
+      let confirmed = false;
+      
+      if (typeof customConfirm === 'function') {
+        confirmed = await customConfirm(
+          'Are you sure you want to delete this comment?<br><br><strong>This action cannot be undone.</strong>',
+          'Delete Comment',
+          {
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+            type: 'warning'
+          }
+        );
+      } else {
+        confirmed = confirm('Are you sure you want to delete this comment?');
+      }
+
+      if (!confirmed) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/api/forum/comments/${commentId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || errorData.error || 'Failed to delete comment');
+        }
+
+        if (typeof showSuccess === 'function') {
+          await showSuccess('Comment deleted successfully!');
+        } else {
+          alert('✅ Comment deleted successfully!');
+        }
+        
+        await loadPostAndComments();
+
+      } catch (err) {
+        Logger.error('❌ Error deleting comment:', err);
+        if (typeof showError === 'function') {
+          await showError('Error deleting comment: ' + err.message);
+        } else {
+          alert('❌ Error: ' + err.message);
+        }
+      }
+    }
+
+    function showErrorDiv(msg) {
+      Logger.error(msg);
+      document.getElementById('error').textContent = msg;
+      document.getElementById('error').style.display = 'block';
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Administration - SuperChessPrep</title>
+  <link rel="icon" href="/images/circle-logo.png">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/admin/forum/admin-forum.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+  <script src="/js/custom-modals.js"></script>
+  <style>
+    /* ========================================
+       Form Row - Flex Layout
+       ======================================== */
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    /* Select styling */
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .form-group select:focus {
+      outline: none;
+      border-color: #ff8c00;
+      box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+    }
+    
+    .form-group select option {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    /* ========================================
+       Checkbox Styles - Vertical Layout
+       ======================================== */
+    .checkbox-section {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 25px 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      border-radius: 12px;
+    }
+    
+    .checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+    
+    .checkbox-wrapper input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #ff8c00;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin: 0;
+    }
+    
+    .checkbox-wrapper .checkbox-label {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .checkbox-wrapper .checkbox-hint {
+      display: block;
+      color: #888;
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    
+    /* ========================================
+       Create Article Button
+       ======================================== */
+    .btn-create-article {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      padding: 16px 40px !important;
+      background: linear-gradient(135deg, #ff8c00, #ff6b00) !important;
+      border: none !important;
+      border-radius: 12px !important;
+      color: #000 !important;
+      font-size: 16px !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      transition: all 0.3s ease !important;
+      margin-top: 25px !important;
+      box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3) !important;
+    }
+    
+    .btn-create-article:hover {
+      background: linear-gradient(135deg, #ffaa00, #ff8c00) !important;
+      transform: translateY(-3px) !important;
+      box-shadow: 0 8px 25px rgba(255, 140, 0, 0.5) !important;
+    }
+
+    /* ========================================
+       Topics/Articles Section
+       ======================================== */
+    .topics-section {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 40px;
+    }
+    
+    .topics-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    /* ========================================
+       Topic/Article Card
+       ======================================== */
+    .topic-card {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .topic-card:hover {
+      border-color: rgba(255, 140, 0, 0.5);
+      box-shadow: 0 5px 20px rgba(255, 140, 0, 0.15);
+    }
+    
+    .topic-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    
+    .topic-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .topic-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 12px 0;
+      line-height: 1.4;
+    }
+    
+    .topic-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .topic-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(255, 140, 0, 0.2);
+      color: #ff8c00;
+    }
+    
+    .topic-date {
+      font-size: 13px;
+      color: #888;
+    }
+    
+    .topic-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    
+    .action-btn:hover {
+      background: rgba(255, 140, 0, 0.15);
+      border-color: #ff8c00;
+      color: #ff8c00;
+    }
+    
+    .action-btn.danger {
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+    
+    .action-btn.danger:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+    }
+
+    /* ========================================
+       Responsive
+       ======================================== */
+    @media (max-width: 900px) {
+      .topic-header {
+        flex-direction: column;
+      }
+      
+      .topic-actions {
+        width: 100%;
+        margin-top: 15px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="/css/core.min.css">
+<script src="/js/auth-helper.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  
+  <!-- Header -->
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="55" height="55">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/admin" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Admin Panel</span>
+        </a>
+        <a href="/dashboard" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Dashboard</span>
+        </a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img loading="lazy" src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">&#128240; News Administration</h1>
+      <p class="page-subtitle">Manage articles and content</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-icon">&#128196;</div>
+        <div class="stat-info">
+          <div class="stat-label">Total Articles</div>
+          <div class="stat-value" id="totalArticles">0</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">&#9989;</div>
+        <div class="stat-info">
+          <div class="stat-label">Published</div>
+          <div class="stat-value" id="publishedArticles">0</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">&#11088;</div>
+        <div class="stat-info">
+          <div class="stat-label">Featured</div>
+          <div class="stat-value" id="featuredArticles">0</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">&#128065;</div>
+        <div class="stat-info">
+          <div class="stat-label">Total Views</div>
+          <div class="stat-value" id="totalViews">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Article Section -->
+    <div class="create-topic-section">
+      <h2 class="section-title">&#10133; Create New Article</h2>
+      
+      <form id="createArticleForm">
+        <div class="form-row">
+          <div class="form-group" style="flex: 2;">
+            <label for="articleTitle">Article Title <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="articleTitle" 
+              placeholder="e.g., Reti Opening for Black: The Bluebaum's Setup"
+              maxlength="500"
+              required>
+          </div>
+          
+          <div class="form-group">
+            <label for="articleCategory">Category <span class="required">*</span></label>
+            <select id="articleCategory" required>
+              <option value="">Select Category</option>
+              <option value="Opening Theory">Opening Theory</option>
+              <option value="Strategy">Strategy</option>
+              <option value="Tactics">Tactics</option>
+              <option value="Endgame">Endgame</option>
+              <option value="Tournament">Tournament</option>
+              <option value="Video">Video Analysis</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="articleExcerpt">Excerpt (Short Description)</label>
+          <textarea 
+            id="articleExcerpt" 
+            rows="2"
+            placeholder="Brief summary of the article..."
+            maxlength="300"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="articleContent">Content <span class="required">*</span></label>
+          <textarea 
+            id="articleContent" 
+            rows="8"
+            placeholder="Write your article content here..."
+            required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="authorName">Author Name <span class="required">*</span></label>
+            <input 
+              type="text" 
+              id="authorName" 
+              placeholder="e.g., GM Boris Avrukh"
+              required>
+          </div>
+          
+          <div class="form-group">
+            <label for="authorRole">Author Role</label>
+            <input 
+              type="text" 
+              id="authorRole" 
+              placeholder="e.g., Opening Specialist">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="thumbnailUrl">Thumbnail Image URL</label>
+          <input 
+            type="url" 
+            id="thumbnailUrl" 
+            placeholder="https://example.com/image.jpg">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mediaType">Media Type</label>
+            <select id="mediaType">
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="flex: 2;">
+            <label for="mediaUrl">Media URL (Image or YouTube Embed)</label>
+            <input 
+              type="url" 
+              id="mediaUrl" 
+              placeholder="https://example.com/media or https://www.youtube.com/embed/VIDEO_ID">
+          </div>
+          
+          <div class="form-group" id="videoDurationGroup" style="display: none;">
+            <label for="videoDuration">Video Duration</label>
+            <input 
+              type="text" 
+              id="videoDuration" 
+              placeholder="e.g., 24:15">
+          </div>
+        </div>
+
+        <!-- Checkbox Section - Vertical Layout -->
+        <div class="checkbox-section">
+          <label class="checkbox-wrapper">
+            <input type="checkbox" id="publishNow" checked>
+            <span class="checkbox-label">
+              &#9989; Publish Immediately
+              <span class="checkbox-hint">Uncheck to save as draft</span>
+            </span>
+          </label>
+          
+          <label class="checkbox-wrapper">
+            <input type="checkbox" id="isFeatured">
+            <span class="checkbox-label">
+              &#11088; Set as Featured Article
+              <span class="checkbox-hint">Will be displayed at the top of the news page</span>
+            </span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-create-article">
+          &#128221; Create Article
+        </button>
+      </form>
+    </div>
+
+    <!-- Articles List -->
+    <div class="topics-section">
+      <h2 class="section-title">&#128218; All Articles</h2>
+      
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All Articles</button>
+        <button class="filter-tab" data-filter="published">Published</button>
+        <button class="filter-tab" data-filter="unpublished">Unpublished</button>
+        <button class="filter-tab" data-filter="featured">Featured</button>
+      </div>
+
+      <div id="articlesContainer" class="topics-list">
+        <!-- Articles will be loaded here -->
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/admin/news/admin-news.js?v=3"></script>
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+</body>
+</html>

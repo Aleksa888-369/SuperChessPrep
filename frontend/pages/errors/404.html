@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | SuperChessPrep</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .container { max-width: 500px; padding: 20px; }
+    .chess-piece { font-size: 100px; margin-bottom: 20px; }
+    h1 { font-size: 60px; color: #f39c12; }
+    p { color: #aaa; margin: 20px 0; }
+    a { display: inline-block; padding: 15px 30px; background: #f39c12; color: #000; text-decoration: none; border-radius: 8px; font-weight: bold; }
+    a:hover { background: #e67e22; }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="chess-piece">♔</div>
+    <h1>404</h1>
+    <p>Page not found. Let's get you back in the game.</p>
+    <a href="/">← Back to Home</a>
+  </div>
+</body>
+</html>

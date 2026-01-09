@@ -1,0 +1,13 @@
+{
+  "name": "SuperChessPrep",
+  "short_name": "SCP",
+  "description": "Chess learning platform - Improve your chess skills",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ff8c00",
+  "orientation": "portrait-primary",
+  "icons": [],
+  "categories": ["education", "games"],
+  "lang": "en"
+}

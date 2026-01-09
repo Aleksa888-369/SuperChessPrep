@@ -1,0 +1,33 @@
+{
+  "name": "superchessprep-frontend",
+  "version": "2.0.0",
+  "description": "SuperChessPrep Frontend - Chess learning platform",
+  "scripts": {
+    "build:js": "npx terser public/js/config.js public/js/state-manager.js public/js/api-client.js public/js/auth-client.js public/js/auth-helper.js public/js/auth-integration.js public/js/header-component.js public/js/mobile-navigation.js public/js/custom-modals.js public/js/error-handler.js public/js/logger.js public/js/performance-utils.js public/js/event-cleanup.js public/js/lazy-loader.js public/js/error-boundary.js -o public/js/bundle.min.js -c -m --source-map",
+    "build:css": "npx cleancss -o public/css/core.min.css public/css/core.bundle.css",
+    "build:critical": "npx npx cleancss public/css/critical.css -o public/css/critical.min.css",
+    "build": "npm run build:js && npm run build:css && npm run build:critical && echo '\u2705 Build complete!'",
+    "build:watch": "nodemon --watch public/js --watch public/css -e js,css --exec 'npm run build'",
+    "lint:js": "eslint public/js/*.js --fix",
+    "clean": "rm -f public/js/bundle.min.js public/css/bundle.css public/css/bundle.min.css",
+    "version:bump": "node -e \"const p=require('./package.json');p.version=p.version.replace(/\\d+$/,m=>+m+1);require('fs').writeFileSync('./package.json',JSON.stringify(p,null,2))\"",
+    "deploy:check": "echo '\ud83d\udd0d Checking deployment...' && curl -s -o /dev/null -w '%{http_code}' https://www.superchessprep.com/health",
+    "stats": "echo '\ud83d\udcca Bundle sizes:' && ls -lh public/js/bundle.min.js public/css/bundle.min.css 2>/dev/null || echo 'Run npm run build first'",
+    "build:core": "npx terser public/js/config.js public/js/logger.js public/js/safe-html.js public/js/event-manager.js public/js/performance-utils.js public/js/error-boundary.js public/js/lazy-loader.js public/js/event-cleanup.js -o public/js/core.min.js -c -m --source-map",
+    "build:auth": "npx terser public/js/auth-client.js public/js/auth-helper.js public/js/auth-integration.js -o public/js/auth.min.js -c -m --source-map",
+    "build:ui": "npx terser public/js/mobile-navigation.js public/js/header-component.js public/js/admin-header.js public/js/custom-modals.js public/js/dashboard-fix.js -o public/js/ui.min.js -c -m --source-map",
+    "build:all-bundles": "npm run build:core && npm run build:auth && npm run build:ui && npm run build:css && echo '\u2705 All bundles created!'"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.2",
+    "terser": "^5.44.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "SuperChessPrep Team",
+  "license": "UNLICENSED",
+  "private": true
+}

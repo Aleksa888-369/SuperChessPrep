@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:title" content="Dashboard - SuperChessPrep">
+  <meta property="og:description" content="Track your chess progress and access daily exercises.">
+  <meta property="og:image" content="https://www.superchessprep.com/images/circle-logo.png">
+  <meta property="og:url" content="https://www.superchessprep.com/dashboard">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Your SuperChessPrep Dashboard - Track progress, access daily exercises, video lessons, and manage your chess training journey.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SuperChessPrep</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/css/dashboard-page.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+  <script src="/js/auth-integration.js?v=4"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+  <style>.scp-dropdown-item[href="/dashboard"] { display: none !important; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+  <!-- Cache clearing code REMOVED - was destroying PWA functionality -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="55" height="55">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/" class="dashboard-button">
+          <span class="dashboard-icon">&#127968;</span>
+          <span>Back to Homepage</span>
+        </a>
+        <div class="user-menu-button" onclick="toggleUserMenu()">
+          <span class="user-avatar" id="userAvatar">&#128100;</span>
+          <span class="user-name" id="userName">Loading...</span>
+          <span class="menu-arrow">&#9660;</span>
+          <div id="userDropdownMenu" class="user-dropdown" style="display: none;">
+            <div class="dropdown-header">
+              <div class="dropdown-avatar">&#128100;</div>
+              <div class="dropdown-info">
+                <div class="dropdown-name" id="usernameDisplay">Username</div>
+                <div class="dropdown-email" id="emailDisplay">user@example.com</div>
+                <div class="dropdown-plan" id="currentPlanDisplay">Current Plan: Free</div>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="#" onclick="showComingSoon('Profile'); return false;" class="dropdown-item">
+              <span class="dropdown-icon">&#128100;</span>
+              Profile
+            </a>
+            <a href="#" onclick="showComingSoon('Settings'); return false;" class="dropdown-item">
+              <span class="dropdown-icon">&#9881;</span>
+              Settings
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" onclick="handleLogout(); return false;" class="dropdown-item logout-item">
+              <span class="dropdown-icon">&#128682;</span>
+              Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    <button class="admin-header-btn" id="adminHeaderBtn" aria-label="Admin menu">
+      &#9881;
+      <div class="admin-dropdown" id="adminDropdown">
+        <div class="admin-dropdown-header"><span>Admin Panel</span></div>
+        <div class="admin-dropdown-search">
+          <span class="admin-dropdown-search-icon">&#128203;</span>
+          <input type="text" id="adminSearchInput" placeholder="Search...">
+        </div>
+        <div class="admin-dropdown-list" id="adminDropdownList"></div>
+      </div>
+    </button>
+    <div class="admin-dropdown-overlay" id="adminDropdownOverlay"></div>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+    </nav>
+  </header>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">&#128100;</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">&#11088;</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">&#127968;</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">&#128202;</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">&#128218;</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">&#127916;</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">&#9823;</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">&#128172;</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">&#128240;</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">&#128142;</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+  
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">&#128203;</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>&#128274;</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>&#10024;</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>&#128682;</span> Logout
+    </button>
+  </div>
+</nav>
+  <div class="main-content">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Welcome to Your Dashboard</h1>
+      <p class="dashboard-subtitle">Exciting features coming soon!</p>
+    </div>
+        <div class="cards-grid">
+      <!-- Row 1: Core Chess Learning -->
+      <div class="card" onclick="window.location.href='/subscription'" style="background: linear-gradient(135deg, rgba(255, 140, 0, 0.1), rgba(255, 99, 71, 0.1));">
+        <div class="card-icon">&#128142;</div>
+        <h3 class="card-title">Subscription Plans</h3>
+        <p class="card-status">Upgrade your account</p>
+        <div style="margin-top: 20px; font-size: 14px; color: #ffbfaa;">
+          <strong>Current Plan:</strong> <span id="currentTierDisplay">Loading...</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9816;</div>
+        <h3 class="card-title">Openings</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9822;</div>
+        <h3 class="card-title">Middlegame</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#9823;</div>
+        <h3 class="card-title">Endgames</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+
+      <!-- Row 2: Content & Community -->
+      <div class="card">
+        <div class="card-icon">&#128214;</div>
+        <h3 class="card-title">History</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card" onclick="location.href='/news'">
+        <div class="card-icon">&#128240;</div>
+        <h3 class="card-title">News and Novelties</h3>
+        <p class="card-description">Latest chess analysis and tournament coverage</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128250;</div>
+        <h3 class="card-title">Live Shows</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card" onclick="location.href='/community'">
+        <div class="card-icon">&#128172;</div>
+        <h3 class="card-title">Community Discussions</h3>
+        <p class="card-description">Join chess discussions with the community</p>
+      </div>
+
+      <!-- Row 3: Practice & Improvement -->
+      <div class="card" onclick="location.href='/exercises'">
+        <div class="card-icon">&#127919;</div>
+        <h3 class="card-title">Daily Exercises</h3>
+        <p class="card-description">Practice with daily chess exercises</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#129504;</div>
+        <h3 class="card-title">Mentality and Correct Thinking</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128228;</div>
+        <h3 class="card-title">Upload Your Games</h3>
+        <p class="card-status">Coming Soon!</p>
+      </div>
+      <div class="card" onclick="location.href='/videos'">
+        <div class="card-icon">&#127916;</div>
+        <h3 class="card-title">Video Lessons</h3>
+        <p class="card-description">Master chess with premium video content</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p class="footer-italic">Powered by Pier Dreams</p>
+  </div>
+  <div id="popupNotification" class="popup-notification">
+    <div class="popup-icon" id="popupIcon">&#8505;</div>
+    <div class="popup-message" id="popupMessage">Notification message</div>
+  </div>
+  <script>
+    var getPaymentApiUrl = function() {
+      var hostname = window.location.hostname;
+      if (hostname === 'superchessprep.com' || hostname === 'www.superchessprep.com') {
+        return 'https://payments.superchessprep.com';
+      }
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        return 'http://localhost:3004';
+      }
+      if (hostname.indexOf('152.53.186.105') !== -1) {
+        return 'http://' + hostname + ':3004';
+      }
+      return 'http://localhost:3004';
+    };
+    var PAYMENT_API_URL = getPaymentApiUrl();
+    console.log('Payment API URL:', PAYMENT_API_URL);
+
+    function getValidToken() {
+      return new Promise(function(resolve) {
+        var token = Auth.storage.getToken();
+        if (!token) {
+          Logger.error('No token found - redirecting to login');
+          window.location.href = '/';
+          resolve(null);
+          return;
+        }
+        try {
+          var parts = token.split('.');
+          if (parts.length !== 3) {
+            throw new Error('Invalid token format');
+          }
+          var payload = JSON.parse(atob(parts[1]));
+          var exp = payload.exp * 1000;
+          var now = Date.now();
+          if (exp < now) {
+            Logger.warn('Token expired - attempting refresh');
+            AuthAPI.refreshToken().then(function(refreshed) {
+              if (refreshed && refreshed.token) {
+                console.log('Token refreshed successfully');
+                resolve(refreshed.token);
+              } else {
+                throw new Error('Refresh failed');
+              }
+            }).catch(function(refreshError) {
+              Logger.error('Token refresh failed:', refreshError);
+              localStorage.removeItem('auth_token');
+              localStorage.removeItem('session_token');
+              window.location.href = '/';
+              resolve(null);
+            });
+          } else {
+            resolve(token);
+          }
+        } catch (error) {
+          Logger.error('Invalid token format - redirecting to login');
+          localStorage.removeItem('auth_token');
+          window.location.href = '/';
+          resolve(null);
+        }
+      });
+    }
+
+    function loadSubscriptionData(maxRetries, baseDelay) {
+      maxRetries = maxRetries || 5;
+      baseDelay = baseDelay || 1000;
+      var attempt = 0;
+      
+      return getValidToken().then(function(token) {
+        if (!token) return null;
+        
+        function tryFetch() {
+          attempt++;
+          var delay = Math.min(attempt * baseDelay, 5000);
+          
+          var doFetch = function() {
+            console.log('Fetching subscription data...');
+            var cacheBuster = '?_t=' + Date.now();
+            return fetch(PAYMENT_API_URL + '/api/subscription/status' + cacheBuster, {
+              method: 'GET',
+              headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+              },
+              cache: 'no-store',
+              mode: 'cors'
+            }).then(function(response) {
+              if (response.status === 401 || response.status === 403) {
+                Logger.error('Unauthorized');
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('session_token');
+                showPopupNotification('Session expired. Please login again.', '&#128274;', 2000);
+                setTimeout(function() { window.location.href = '/'; }, 2000);
+                return null;
+              }
+              if ((response.status === 404 || response.status >= 500) && attempt < maxRetries) {
+                Logger.warn('Got ' + response.status + ', will retry...');
+                return new Promise(function(r) { setTimeout(r, delay); }).then(tryFetch);
+              }
+              if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+              }
+              return response.json();
+            }).then(function(data) {
+              if (data) console.log('Subscription data loaded:', data);
+              return data;
+            }).catch(function(error) {
+              Logger.error('Attempt ' + attempt + ' failed:', error.message);
+              if (attempt >= maxRetries) {
+                Logger.error('All retry attempts failed');
+                showPopupNotification('Failed to load subscription. Please refresh.', '&#9888;', 3000);
+                return null;
+              }
+              return new Promise(function(r) { setTimeout(r, delay); }).then(tryFetch);
+            });
+          };
+          
+          if (attempt > 1) {
+            console.log('Retry attempt ' + attempt + '/' + maxRetries + ' (waiting ' + delay + 'ms)...');
+            return new Promise(function(r) { setTimeout(r, delay); }).then(doFetch);
+          }
+          return doFetch();
+        }
+        
+        return tryFetch();
+      });
+    }
+
+    function updateSubscriptionDisplay() {
+      return loadSubscriptionData().then(function(data) {
+        if (!data) {
+          document.getElementById('currentTierDisplay').textContent = 'Free';
+          document.getElementById('currentPlanDisplay').textContent = 'Current Plan: Free';
+          return;
+        }
+        var tier = data.subscription.tier || 'free';
+        var tierDisplay = tier.charAt(0).toUpperCase() + tier.slice(1);
+        document.getElementById('currentTierDisplay').textContent = tierDisplay;
+        document.getElementById('currentPlanDisplay').textContent = 'Current Plan: ' + tierDisplay;
+        var colors = {
+          free: '#aaa',
+          basic: '#4CAF50',
+          premium: '#ff8c00',
+          elite: '#ffd700'
+        };
+        var color = colors[tier] || colors.free;
+        document.getElementById('currentTierDisplay').style.color = color;
+        document.getElementById('currentPlanDisplay').style.color = color;
+      });
+    }
+
+    function toggleUserMenu() {
+      var dropdown = document.getElementById('userDropdownMenu');
+      var isVisible = dropdown.style.display === 'block';
+      dropdown.style.display = isVisible ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', function(e) {
+      var userMenu = document.querySelector('.user-menu-button');
+      var dropdown = document.getElementById('userDropdownMenu');
+      if (!userMenu.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    function showPopupNotification(message, icon, duration) {
+      icon = icon || '&#8505;';
+      duration = duration || 3000;
+      var popup = document.getElementById('popupNotification');
+      var popupIcon = document.getElementById('popupIcon');
+      var popupMessage = document.getElementById('popupMessage');
+      popupIcon.innerHTML = icon;
+      popupMessage.textContent = message;
+      popup.classList.add('show');
+      setTimeout(function() {
+        popup.classList.remove('show');
+      }, duration);
+    }
+
+    function showComingSoon(feature) {
+      showPopupNotification(feature + ' feature is coming soon!', '&#128679;', 3000);
+      document.getElementById('userDropdownMenu').style.display = 'none';
+    }
+
+    function handleLogout() {
+      document.getElementById('userDropdownMenu').style.display = 'none';
+      showPopupNotification('Logging out...', '&#9203;', 1000);
+      AuthAPI.logout().then(function() {
+        showPopupNotification('Logout successful!', '&#9989;', 1500);
+        setTimeout(function() { window.location.href = '/'; }, 1500);
+      }).catch(function(error) {
+        Logger.error('Logout error:', error);
+        showPopupNotification('Logout failed. Please try again.', '&#10060;', 3000);
+      });
+    }
+
+    function loadUserInfo() {
+      return new Promise(function(resolve) {
+        try {
+          var user = Auth.getCurrentUser();
+          if (user && user.username && user.email) {
+            var userNameEl = document.getElementById('userName');
+            var usernameDisplayEl = document.getElementById('usernameDisplay');
+            var emailDisplayEl = document.getElementById('emailDisplay');
+            if (userNameEl) userNameEl.textContent = user.username;
+            if (usernameDisplayEl) usernameDisplayEl.textContent = user.username;
+            if (emailDisplayEl) emailDisplayEl.textContent = user.email;
+            console.log('User info loaded:', user.username, user.email);
+            resolve();
+          } else {
+            Logger.warn('User data incomplete or missing');
+            AuthAPI.checkAuth().then(function(apiUser) {
+              if (apiUser && apiUser.user) {
+                var userNameEl = document.getElementById('userName');
+                var usernameDisplayEl = document.getElementById('usernameDisplay');
+                var emailDisplayEl = document.getElementById('emailDisplay');
+                if (userNameEl) userNameEl.textContent = apiUser.user.username;
+                if (usernameDisplayEl) usernameDisplayEl.textContent = apiUser.user.username;
+                if (emailDisplayEl) emailDisplayEl.textContent = apiUser.user.email;
+                console.log('User info loaded from API:', apiUser.user.username, apiUser.user.email);
+              }
+              resolve();
+            }).catch(function(apiError) {
+              Logger.error('Failed to fetch user from API:', apiError);
+              resolve();
+            });
+          }
+        } catch (error) {
+          Logger.error('Error loading user info:', error);
+          resolve();
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Dashboard initializing...');
+      if (typeof Auth === 'undefined' || typeof AuthAPI === 'undefined') {
+        Logger.error('Auth system not loaded');
+        showPopupNotification('Authentication error. Redirecting...', '&#10060;', 1000);
+        setTimeout(function() { window.location.href = '/'; }, 1000);
+        return;
+      }
+      if (!Auth.isLoggedIn()) {
+        Logger.warn('User not logged in');
+        showPopupNotification('Please login to access dashboard', '&#128274;', 1000);
+        setTimeout(function() { window.location.href = '/'; }, 1000);
+        return;
+      }
+      loadUserInfo().then(function() {
+        return updateSubscriptionDisplay();
+      }).then(function() {
+        console.log('Dashboard loaded successfully');
+        var user = Auth.getCurrentUser();
+        if (user && user.role === 'admin') {
+          // Admin Panel card removed - access via user dropdown menu only
+          // Admin panel card disabled
+        }
+      });
+    });
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">&#127968;</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">&#128218;</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">&#9823;</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">&#128172;</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">&#128100;</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+<script defer src="/js/admin-header.js"></script>
+<script src="/js/header-component.js" defer></script>
+<script src="/js/dashboard-fix.js?v=3"></script>
+<script defer src="/js/sw-register.js" ></script>
+</body>
+</html>

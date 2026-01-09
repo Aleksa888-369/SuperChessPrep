@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="description" content="Chess Courses - Comprehensive training from openings to endgames. Learn from top players and improve your rating.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Courses - SuperChessPrep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="preload" href="/css/bundle.min.css?v=20" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="preload" href="/css/bundle.min.css?v=20" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="preload" href="/css/bundle.min.css?v=20" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/bundle.min.css?v=20"></noscript>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #111, #1c1c1c);
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
+
+    /* Updated Header */
+    .header {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Logo Container - Golden-orange pulsating logo */
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+
+    .circle-logo {
+      
+      
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(45deg, #ff8c00, #ffd700, #ff6347) border-box;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.6),
+                    0 0 20px rgba(255, 215, 0, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(255, 140, 0, 0),
+                    0 0 25px rgba(255, 215, 0, 0.5);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 140, 0, 0),
+                    0 0 20px rgba(255, 215, 0, 0.4);
+      }
+    }
+
+    /* Right Side Navigation Container */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Dashboard Button - prikazuje se when is user ulogovan */
+    .dashboard-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 25px;
+      color: #ff8c00;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .dashboard-button:hover {
+      background: rgba(255, 140, 0, 0.15);
+      border-color: #ff8c00;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+    }
+
+    .dashboard-icon {
+      font-size: 18px;
+    }
+
+    /* Partner Logo - Modern Chess Right Side */
+    .partner-logo {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 25px;
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      transition: all 0.3s;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .partner-logo:hover {
+      background: rgba(0, 0, 0, 0.6);
+      border-color: rgba(0, 174, 239, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 174, 239, 0.2);
+    }
+
+    .modern-chess-text {
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .chess-icon {
+      color: #00aeef;
+      margin-right: 6px;
+      font-size: 24px;
+    }
+
+    .modern-text {
+      color: #00aeef;
+      margin-right: 4px;
+    }
+
+    .chess-text {
+      color: #ffffff;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: 
+        linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.55)),
+        url('/images/chess-pieces-background.webp') center 60%/cover no-repeat;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 8vw, 64px);
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #ff8c00, #ff6347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+    }
+
+    .page-subtitle {
+      color: #fff0e6;
+      font-size: clamp(18px, 4vw, 26px);
+      font-style: italic;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Search Section */
+    .search-section {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Main Search Bar with Filter Toggle */
+    .main-search-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .main-search-bar {
+      width: 100%;
+      padding: 16px 25px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 140, 0, 0.4);
+      border-radius: 50px;
+      color: #ffffff;
+      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+    }
+
+    .main-search-bar:focus {
+      outline: none;
+      border-color: #ff8c00;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+    }
+
+    .main-search-bar::placeholder {
+      color: #ffbfaa;
+    }
+
+    /* Filter Toggle Button */
+    .filter-toggle {
+      padding: 16px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(255, 140, 0, 0.4);
+      border-radius: 50px;
+      color: #ff8c00;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+      font-weight: 500;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-toggle:hover {
+      background: rgba(255, 140, 0, 0.15);
+      border-color: #ff8c00;
+    }
+
+    .filter-toggle.active {
+      background: rgba(255, 140, 0, 0.25);
+      border-color: #ff8c00;
+    }
+
+    .filter-icon {
+      font-size: 20px;
+    }
+
+    /* Advanced Filters Container */
+    .advanced-filters {
+      background: rgba(25, 25, 25, 0.7);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      display: none;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .advanced-filters.active {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-label {
+      color: #ff8c00;
+      font-size: 14px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .filter-input, .filter-select {
+      padding: 12px 15px;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.4);
+      border-radius: 10px;
+      color: #ffffff;
+      transition: all 0.3s;
+    }
+
+    .filter-input:focus, .filter-select:focus {
+      outline: none;
+      border-color: #ff8c00;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
+    }
+
+    .filter-input::placeholder {
+      color: #e6a590;
+    }
+
+    .filter-select {
+      cursor: pointer;
+    }
+
+    .filter-select option {
+      background: #1c1c1c;
+      color: #ffffff;
+    }
+
+    /* Date Filters */
+    .date-filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+    }
+
+    /* Filter Action Buttons */
+    .filter-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-apply, .btn-clear {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-apply {
+      background: linear-gradient(45deg, #ff8c00, #ff6347);
+      color: #000000;
+      box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+    }
+
+    .btn-apply:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+    }
+
+    .btn-clear {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: 1px solid rgba(255, 140, 0, 0.4);
+    }
+
+    .btn-clear:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ff8c00;
+    }
+
+    /* Topic Filter Buttons */
+    .topic-filters {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .topic-btn {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.4);
+      border-radius: 25px;
+      color: #ffbfaa;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .topic-btn:hover, .topic-btn.active {
+      background: rgba(255, 140, 0, 0.25);
+      border-color: #ff8c00;
+      color: #ff8c00;
+    }
+
+    /* Author Filter Buttons */
+    .author-filters {
+      display: none;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .author-filters.show {
+      display: flex;
+    }
+
+    .author-btn {
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.4);
+      border-radius: 25px;
+      color: #ffbfaa;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .author-btn:hover, .author-btn.active {
+      background: rgba(255, 140, 0, 0.25);
+      border-color: #ff8c00;
+      color: #ff8c00;
+    }
+
+    /* Special Golden Author Button for Pier Luigi Basso */
+    .author-btn.golden-author {
+      background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 237, 78, 0.2));
+      border: 2px solid #ffd700;
+      color: #ffd700;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      animation: goldenGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes goldenGlow {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.3);
+      }
+    }
+
+    .author-btn.golden-author::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 215, 0, 0.3) 50%,
+        transparent 70%
+      );
+      animation: shimmer 3s infinite;
+    }
+
+    .author-btn.golden-author:hover, .author-btn.golden-author.active {
+      background: linear-gradient(45deg, #ffd700, #ffed4e);
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    /* Coming Soon Button Special Style */
+    .topic-btn.coming-soon {
+      background: linear-gradient(45deg, rgba(255, 140, 0, 0.15), rgba(255, 99, 71, 0.15));
+      border: 1px solid #ff8c00;
+      color: #ff8c00;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .topic-btn.coming-soon::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 140, 0, 0.3) 50%,
+        transparent 70%
+      );
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+      }
+    }
+
+    .topic-btn.coming-soon:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, rgba(255, 140, 0, 0.25), rgba(255, 99, 71, 0.25));
+    }
+
+    /* Courses Grid */
+    .courses-section {
+      padding: 40px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .courses-count {
+      text-align: center;
+      color: #ffbfaa;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+      min-height: 400px;
+    }
+
+    .course-card {
+      background: rgba(25, 25, 25, 0.7);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Special Golden Card for Pier Luigi Basso courses */
+    .course-card.golden-card {
+      border: 2px solid rgba(255, 215, 0, 0.5);
+      background: linear-gradient(135deg, rgba(25, 25, 25, 0.8), rgba(40, 35, 20, 0.8));
+      order: -1;
+    }
+
+    .course-card.golden-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent, rgba(255, 215, 0, 0.05));
+      pointer-events: none;
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 35px rgba(255, 140, 0, 0.25);
+    }
+
+    .course-card.golden-card:hover {
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.35);
+    }
+
+    .course-image {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #2d2d2d, #1e1e1e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #cc7055;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 85%;
+    }
+
+    .course-image::before {
+      content: '♞';
+      position: absolute;
+      font-size: 100px;
+      opacity: 0.1;
+      color: #ff8c00;
+    }
+
+    .course-info {
+      padding: 20px;
+    }
+
+    .course-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #ff8c00;
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .course-author {
+      color: #ffbfaa;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    /* Special Golden Style for Pier Luigi Basso */
+    .course-author.golden-author {
+      background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+      font-size: 15px;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      display: inline-block;
+      animation: shimmerText 3s infinite linear;
+      position: relative;
+    }
+
+    @keyframes shimmerText {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .course-date {
+      color: #e6a590;
+      font-size: 13px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .date-icon {
+      color: #ff8c00;
+      opacity: 0.7;
+      font-size: 12px;
+    }
+
+    /* Enhanced View Course Button */
+    .course-link {
+      color: #ff6347;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      position: relative;
+      display: inline-block;
+      padding: 12px;
+      width: 100%;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255, 140, 0, 0.12) 0%, rgba(255, 99, 71, 0.12) 100%);
+      border: 1px solid rgba(255, 140, 0, 0.4);
+      border-radius: 8px;
+    }
+
+    .course-link::after {
+      content: ' →';
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+
+    .course-link:hover {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6347 100%);
+      color: #000000;
+      transform: translateY(-2px);
+    }
+
+    .course-link:hover::after {
+      transform: translateX(4px);
+    }
+
+    /* Disabled link style */
+    .course-link.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .course-link.disabled:hover {
+      background: linear-gradient(135deg, rgba(255, 140, 0, 0.12) 0%, rgba(255, 99, 71, 0.12) 100%);
+      color: #ff6347;
+      transform: none;
+    }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #ffbfaa;
+      grid-column: 1 / -1;
+    }
+
+    .loader {
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid #ff8c00;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.4);
+      border-radius: 5px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .page-btn:hover, .page-btn.active {
+      background: rgba(255, 140, 0, 0.25);
+      border-color: #ff8c00;
+      color: #ff8c00;
+    }
+
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: #808080;
+    }
+
+    .page-btn.nav-btn {
+      background: linear-gradient(45deg, rgba(255, 140, 0, 0.15), rgba(255, 99, 71, 0.15));
+      font-weight: 600;
+    }
+
+    .page-btn.nav-btn:hover:not(:disabled) {
+      background: linear-gradient(45deg, rgba(255, 140, 0, 0.35), rgba(255, 99, 71, 0.35));
+      transform: scale(1.05);
+    }
+
+    .page-separator {
+      color: #cc7055;
+      padding: 0 5px;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(255, 140, 0, 0.3);
+      background: #111;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .footer-italic {
+      font-style: italic;
+      color: #ff8c00;
+      font-size: 16px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 15px;
+      }
+      
+      .circle-logo {
+        width: 60px;
+        height: 60px;
+      }
+
+      .dashboard-button span:not(.dashboard-icon) {
+        display: none;
+      }
+      
+      .modern-chess-text {
+      font-size: 22px;
+      }
+      
+      .chess-icon {
+        font-size: 20px;
+      }
+      
+      .page-title {
+        font-size: 36px;
+      }
+      .page-subtitle {
+        font-size: 20px;
+      }
+      .main-search-container {
+        flex-direction: column;
+      }
+      .filters-grid {
+        grid-template-columns: 1fr;
+      }
+      .date-filters {
+        grid-template-columns: 1fr;
+      }
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+      .topic-filters {
+        justify-content: center;
+      }
+      .advanced-filters {
+        padding: 20px 15px;
+      }
+      .course-title {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .circle-logo {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .modern-chess-text {
+      font-size: 22px;
+      }
+      
+      .chess-icon {
+        font-size: 18px;
+      }
+      
+      .page-header {
+        min-height: 250px;
+        padding: 60px 15px 40px;
+      }
+      .filter-actions {
+        flex-direction: column;
+      }
+      .btn-apply, .btn-clear {
+        width: 100%;
+      }
+      .courses-section {
+        padding: 40px 15px;
+      }
+      .course-image {
+        height: 180px;
+      }
+      .pagination {
+        gap: 5px;
+      }
+      .page-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+  <script src="/js/safe-html.js" defer></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/auth-client.js" defer></script>
+  <script src="/js/auth-integration.js?v=3" defer></script>   
+<link rel="stylesheet" href="/css/core.min.css">
+  <script defer src="/js/config.js" ></script>
+
+  <style>
+    /* Modern Chess Logo - Option C (22px) - FINAL FIX */
+    .partner-logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      padding: 10px 20px !important;
+      background: rgba(0, 0, 0, 0.4) !important;
+      border-radius: 25px !important;
+      border: 1px solid rgba(255, 140, 0, 0.2) !important;
+      transition: all 0.3s !important;
+      text-decoration: none !important;
+    }
+
+    .partner-logo:hover {
+      background: rgba(0, 0, 0, 0.6) !important;
+      border-color: rgba(0, 174, 239, 0.3) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(0, 174, 239, 0.2) !important;
+    }
+
+    .modern-chess-text {
+      font-size: 22px !important;
+      font-weight: 700 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .chess-icon {
+      color: #00aeef !important;
+      font-size: 24px !important;
+      margin-right: 6px !important;
+    }
+
+    .modern-text {
+      color: #00aeef !important;
+      margin-right: 4px !important;
+    }
+
+    .chess-text {
+      color: #ffffff !important;
+    }
+  </style>
+
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+  <!-- Updated Header with Circle Logo -->
+  <header class="header">
+    <nav class="nav-container">
+      <!-- Left Logo - SuperChessPrep Circle -->
+      <a href="/" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      
+      <!-- Right Side Navigation -->
+      <div class="nav-right">
+        <!-- Partner Logo - Modern Chess -->
+        <a href="https://www.modern-chess.com/" target="_blank" class="partner-logo">
+          <div class="modern-chess-text">
+            <span class="chess-icon">♞</span>
+            <span class="modern-text">Modern</span><span class="chess-text">Chess</span>
+          </div>
+        </a>
+        
+        <!-- Dashboard Button (shown when logged in, managed by auth-integration.js) -->
+        <a href="/dashboard" class="dashboard-button" id="dashboardButton" style="display: none;">
+          <span class="dashboard-icon">📊</span>
+          <span>Dashboard</span>
+        </a>
+      </div>
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+  <span class="hamburger-line"></span>
+</button>
+    </nav>
+  </header>
+<main id="main-content">
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+  
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <p style="color: #fff; font-size: 20px; margin-bottom: 8px; font-weight: 600;">Welcome!</p>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Page Header -->
+  <section class="page-header">
+    <h1 class="page-title">All Courses</h1>
+    <p class="page-subtitle">One step ahead. Always</p>
+  </section>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <!-- Main Search Bar with Filter Toggle -->
+    <div class="main-search-container">
+      <div class="search-wrapper">
+        <input type="text" class="main-search-bar" id="mainSearch" 
+               placeholder="Search courses by title..." 
+               onkeypress="handleSearchKeyPress(event)">
+      </div>
+      <button class="filter-toggle" id="filterToggle" onclick="toggleFilters()">
+        <span class="filter-icon">⚙</span>
+        <span>Filters</span>
+      </button>
+    </div>
+
+    <!-- Advanced Filters (Hidden by Default) -->
+    <div class="advanced-filters" id="advancedFilters">
+      <div class="filters-grid">
+        <!-- Date Filters Only -->
+        <div class="filter-group">
+          <label class="filter-label">Filter by Date</label>
+          <div class="date-filters">
+            <select class="filter-select" id="filterMonth">
+              <option value="">Month</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <select class="filter-select" id="filterYear">
+              <option value="">Year</option>
+            </select>
+            <input type="date" class="filter-input" id="filterExactDate">
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Action Buttons -->
+      <div class="filter-actions">
+        <button class="btn-apply" onclick="applyFilters()">Apply Filters</button>
+        <button class="btn-clear" onclick="clearFilters()">Clear All</button>
+      </div>
+    </div>
+
+    <!-- Topic Filter Buttons -->
+    <div class="topic-filters" id="topicFilters">
+      <button class="topic-btn active" data-filter="all" onclick="handleTopicClick(this)">All Topics</button>
+      <button class="topic-btn" data-filter="middlegame" onclick="handleTopicClick(this)">Middlegame</button>
+      <button class="topic-btn" data-filter="endgame" onclick="handleTopicClick(this)">Endgame</button>
+      <button class="topic-btn" data-filter="authors" onclick="handleTopicClick(this)">Authors</button>
+      <button class="topic-btn coming-soon" data-filter="coming-soon" onclick="handleTopicClick(this)">Coming Soon</button>
+    </div>
+
+    <!-- Author Filter Buttons (Hidden by default) -->
+    <div class="author-filters" id="authorFilters">
+      <!-- Authors will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Courses Section -->
+  <section class="courses-section">
+    <p class="courses-count">Showing <span id="courseCount">0</span> courses</p>
+    
+    <div class="courses-grid" id="coursesGrid">
+      <div class="loading">
+        <div class="loader"></div>
+        <p>Loading courses...</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+  </section>
+
+  <!-- Footer -->
+  </main>
+<footer class="footer">
+    <p class="footer-italic">Powered by Pier Dreams</p>
+  </footer>
+
+  <script>
+    const API_BASE_URL = '';
+    
+    // State management
+    let allCourses = [];
+    let filteredCourses = [];
+    let allAuthors = [
+      'GM Pier Luigi Basso',
+      'GM Alexey Dreev',
+      'GM Baadur Jobava',
+      'GM Jose Martinez Alcantara',
+      'GM Luca Moroni',
+      'GM Lucas van Foreest',
+      'GM Vitaliy Bernadskiy',
+      'IM Dragos Ceres'
+    ];
+    let currentPage = 1;
+    const coursesPerPage = 12;
+    let currentTopicFilter = 'all';
+    let selectedAuthor = '';
+
+    // Format date function
+    function formatDate(dateString) {
+      if (!dateString) return 'Date not available';
+      const date = new Date(dateString);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    // ✅ FIX: Helper function to check if URL is valid
+    function isValidUrl(url) {
+      if (!url || typeof url !== 'string') return false;
+      const trimmed = url.trim();
+      if (trimmed === '' || trimmed === 'undefined' || trimmed === 'null') return false;
+      return trimmed.startsWith('http://') || trimmed.startsWith('https://');
+    }
+
+    // ✅ FIX: Handle course card click
+    function handleCourseClick(url) {
+      if (isValidUrl(url)) {
+        window.open(url, '_blank');
+      } else {
+        alert('Course link is not available yet.');
+      }
+    }
+
+    // Toggle filter visibility
+    function toggleFilters() {
+      const filterSection = document.getElementById('advancedFilters');
+      const filterToggle = document.getElementById('filterToggle');
+      
+      filterSection.classList.toggle('active');
+      filterToggle.classList.toggle('active');
+    }
+
+    // Handle search on Enter key
+    function handleSearchKeyPress(event) {
+      if (event.key === 'Enter') {
+        performQuickSearch();
+      }
+    }
+
+    // Handle topic button click
+    function handleTopicClick(btn) {
+      document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      currentTopicFilter = btn.dataset.filter;
+      const authorFilters = document.getElementById('authorFilters');
+      
+      if (currentTopicFilter === 'authors') {
+        displayAuthorButtons();
+        authorFilters.classList.add('show');
+        selectedAuthor = '';
+      } else {
+        authorFilters.classList.remove('show');
+        selectedAuthor = '';
+      }
+      
+      performQuickSearch();
+    }
+
+    // Display author buttons
+    function displayAuthorButtons() {
+      const authorFilters = document.getElementById('authorFilters');
+      
+      authorFilters.innerHTML = allAuthors.map(author => {
+        const isPierLuigi = author.includes('Pier Luigi Basso');
+        const className = isPierLuigi ? 'author-btn golden-author' : 'author-btn';
+        return `<button class="${className}" data-author="${author}" onclick="selectAuthor('${author}')">${author}</button>`;
+      }).join('');
+    }
+
+    // Select author for filtering
+    function selectAuthor(author) {
+      const authorBtns = document.querySelectorAll('.author-btn');
+      
+      authorBtns.forEach(btn => {
+        if (btn.dataset.author === author) {
+          if (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+            selectedAuthor = '';
+          } else {
+            authorBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedAuthor = author;
+          }
+        }
+      });
+
+      performQuickSearch();
+    }
+
+    // Quick search
+    function performQuickSearch() {
+      const searchTerm = document.getElementById('mainSearch').value.toLowerCase();
+      
+      filteredCourses = allCourses.filter(course => {
+        const cleanTitle = course.title.replace(/^\d+[_\-\s]*/, '').trim();
+        
+        const matchesSearch = !searchTerm || 
+          cleanTitle.toLowerCase().includes(searchTerm);
+
+        let matchesTopic = true;
+        if (currentTopicFilter === 'authors') {
+          if (selectedAuthor) {
+            matchesTopic = course.authors && course.authors.includes(selectedAuthor);
+          } else {
+            matchesTopic = course.authors && course.authors.length > 0;
+          }
+        } else if (currentTopicFilter === 'coming-soon') {
+          matchesTopic = false;
+        } else if (currentTopicFilter !== 'all') {
+          matchesTopic = cleanTitle.toLowerCase().includes(currentTopicFilter);
+        }
+
+        return matchesSearch && matchesTopic;
+      });
+
+      if (currentTopicFilter === 'coming-soon') {
+        document.getElementById('coursesGrid').innerHTML = 
+          '<div class="loading" style="color: #ff8c00; font-size: 24px; font-weight: 600;">New courses coming soon!</div>';
+        document.getElementById('courseCount').textContent = '0';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      if (currentTopicFilter === 'authors' && selectedAuthor === 'GM Pier Luigi Basso') {
+        filteredCourses.sort((a, b) => {
+          const aHasPier = a.authors && a.authors.includes('GM Pier Luigi Basso');
+          const bHasPier = b.authors && b.authors.includes('GM Pier Luigi Basso');
+          
+          if (aHasPier && !bHasPier) return -1;
+          if (!aHasPier && bHasPier) return 1;
+          
+          return new Date(b.date) - new Date(a.date);
+        });
+      } else {
+        filteredCourses.sort((a, b) => {
+          if (!a.date) return 1;
+          if (!b.date) return -1;
+          return new Date(b.date) - new Date(a.date);
+        });
+      }
+
+      currentPage = 1;
+      displayCourses();
+    }
+
+    // Load all courses
+    async function loadCourses() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/courses`);
+        const data = await response.json();
+
+        if (data.success) {
+          allCourses = data.courses;
+          
+          allCourses.sort((a, b) => {
+            if (!a.date) return 1;
+            if (!b.date) return -1;
+            return new Date(b.date) - new Date(a.date);
+          });
+          
+          filteredCourses = [...allCourses];
+          displayCourses();
+          loadYears();
+        } else {
+          showError('Failed to load courses');
+        }
+      } catch (error) {
+        Logger.error('Error loading courses:', error);
+        showError('Unable to connect to server. Please make sure the server is running.');
+      }
+    }
+
+    // Load available years
+    async function loadYears() {
+      const years = new Set();
+      allCourses.forEach(course => {
+        if (course.date) {
+          const year = new Date(course.date).getFullYear();
+          years.add(year);
+        }
+      });
+
+      const yearSelect = document.getElementById('filterYear');
+      yearSelect.innerHTML = '<option value="">Year</option>';
+      
+      Array.from(years).sort((a, b) => b - a).forEach(year => {
+        yearSelect.innerHTML += `<option value="${year}">${year}</option>`;
+      });
+    }
+
+    // Apply all filters
+    function applyFilters() {
+      const mainSearch = document.getElementById('mainSearch').value.toLowerCase();
+      const monthFilter = document.getElementById('filterMonth').value;
+      const yearFilter = document.getElementById('filterYear').value;
+      const exactDate = document.getElementById('filterExactDate').value;
+
+      filteredCourses = allCourses.filter(course => {
+        const cleanTitle = course.title.replace(/^\d+[_\-\s]*/, '').trim();
+        
+        const matchesSearch = !mainSearch || 
+          cleanTitle.toLowerCase().includes(mainSearch);
+
+        let matchesDate = true;
+        if (exactDate) {
+          const courseDate = new Date(course.date).toISOString().split('T')[0];
+          matchesDate = courseDate === exactDate;
+        } else if (monthFilter || yearFilter) {
+          const courseDate = new Date(course.date);
+          if (monthFilter) {
+            matchesDate = matchesDate && (courseDate.getMonth() + 1) == monthFilter;
+          }
+          if (yearFilter) {
+            matchesDate = matchesDate && courseDate.getFullYear() == yearFilter;
+          }
+        }
+
+        let matchesTopic = true;
+        if (currentTopicFilter === 'authors') {
+          if (selectedAuthor) {
+            matchesTopic = course.authors && course.authors.includes(selectedAuthor);
+          } else {
+            matchesTopic = course.authors && course.authors.length > 0;
+          }
+        } else if (currentTopicFilter === 'coming-soon') {
+          matchesTopic = false;
+        } else if (currentTopicFilter !== 'all') {
+          matchesTopic = cleanTitle.toLowerCase().includes(currentTopicFilter);
+        }
+
+        return matchesSearch && matchesDate && matchesTopic;
+      });
+
+      filteredCourses.sort((a, b) => {
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      currentPage = 1;
+      displayCourses();
+      
+      document.getElementById('advancedFilters').classList.remove('active');
+      document.getElementById('filterToggle').classList.remove('active');
+    }
+
+    // Clear all filters
+    function clearFilters() {
+      document.getElementById('mainSearch').value = '';
+      document.getElementById('filterMonth').value = '';
+      document.getElementById('filterYear').value = '';
+      document.getElementById('filterExactDate').value = '';
+      
+      filteredCourses = [...allCourses];
+      currentPage = 1;
+      displayCourses();
+    }
+
+    // Display courses - ✅ FIXED VERSION
+    function displayCourses() {
+      const start = (currentPage - 1) * coursesPerPage;
+      const end = start + coursesPerPage;
+      const coursesToShow = filteredCourses.slice(start, end);
+
+      const container = document.getElementById('coursesGrid');
+      
+      if (coursesToShow.length === 0) {
+        container.innerHTML = '<p class="loading">No courses found matching your criteria</p>';
+        document.getElementById('courseCount').textContent = '0';
+        updatePagination();
+        return;
+      }
+
+      container.innerHTML = coursesToShow.map(course => {
+        const cleanTitle = course.title.replace(/^\d+[_\-\s]*/, '').trim();
+        
+        const hasPierLuigi = course.authors && course.authors.some(author => 
+          author.includes('Pier Luigi Basso')
+        );
+        
+        const cardClass = (currentTopicFilter === 'authors' && selectedAuthor === 'GM Pier Luigi Basso' && hasPierLuigi) 
+          ? 'course-card golden-card' 
+          : 'course-card';
+        
+        const formatAuthors = () => {
+          if (!course.authors || course.authors.length === 0) {
+            return '<p class="course-author">Author not specified</p>';
+          }
+          
+          if (hasPierLuigi) {
+            const pierLuigi = course.authors.find(a => a.includes('Pier Luigi Basso'));
+            const otherAuthors = course.authors.filter(a => !a.includes('Pier Luigi Basso'));
+            
+            let authorHTML = `<p class="course-author golden-author">${pierLuigi}</p>`;
+            if (otherAuthors.length > 0) {
+              authorHTML += `<p class="course-author">${otherAuthors.join(', ')}</p>`;
+            }
+            return authorHTML;
+          }
+          
+          return `<p class="course-author">${course.authors.join(', ')}</p>`;
+        };
+
+        // ✅ FIX: Check if website URL is valid
+        const hasValidUrl = isValidUrl(course.website);
+
+        return `
+          <div class="${cardClass}" onclick="handleCourseClick('${course.website || ''}')">
+            <div class="course-image">
+              ${course.image ? 
+                `<img loading="lazy" src="${API_BASE_URL}${course.image}" alt="${cleanTitle}" onerror="this.style.display='none'">` : 
+                '<span>No Image</span>'
+              }
+            </div>
+            <div class="course-info">
+              <h3 class="course-title">${cleanTitle}</h3>
+              ${formatAuthors()}
+              <p class="course-date">
+                <span class="date-icon">📅</span>
+                ${formatDate(course.date)}
+              </p>
+              ${hasValidUrl 
+                ? `<a href="${course.website}" target="_blank" class="course-link" onclick="event.stopPropagation()">View Course</a>`
+                : `<span class="course-link disabled">Link Coming Soon</span>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('courseCount').textContent = filteredCourses.length;
+      updatePagination();
+    }
+
+    // Update pagination
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+      const pagination = document.getElementById('pagination');
+      
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+
+      let paginationHTML = '';
+
+      paginationHTML += `<button class="page-btn nav-btn" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>⮜ First</button>`;
+      paginationHTML += `<button class="page-btn" onclick="changePage('prev')" ${currentPage === 1 ? 'disabled' : ''}>← Previous</button>`;
+      
+      const maxVisiblePages = 5;
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+      if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+      }
+
+      if (startPage > 1) {
+        paginationHTML += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+        if (startPage > 2) {
+          paginationHTML += `<span class="page-separator">...</span>`;
+        }
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+      }
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+          paginationHTML += `<span class="page-separator">...</span>`;
+        }
+        paginationHTML += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+      }
+
+      paginationHTML += `<button class="page-btn" onclick="changePage('next')" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+      paginationHTML += `<button class="page-btn nav-btn" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last ⮞</button>`;
+      
+      pagination.innerHTML = paginationHTML;
+    }
+
+    // Change page
+    function changePage(direction) {
+      const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+      if (direction === 'prev' && currentPage > 1) {
+        currentPage--;
+      } else if (direction === 'next' && currentPage < totalPages) {
+        currentPage++;
+      }
+      displayCourses();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Go to specific page
+    function goToPage(page) {
+      currentPage = page;
+      displayCourses();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Show error message
+    function showError(message) {
+      const container = document.getElementById('coursesGrid');
+      container.innerHTML = `<p class="loading" style="color: #ff6b6b;">${message}</p>`;
+      document.getElementById('courseCount').textContent = '0';
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCourses();
+    });
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+</body>
+</html>

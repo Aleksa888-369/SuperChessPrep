@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 1. CRITICAL: Character encoding (must be in first 1024 bytes) -->
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperChessPrep - One step ahead. Always</title>
+  
+  <!-- 2. PRECONNECT: Establish early connections -->
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  
+  <!-- 3. PWA & SEO Meta -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico">
+  <meta name="description" content="SuperChessPrep - Master chess with daily exercises, video lessons, and expert analysis. One step ahead, always. Join thousands of players improving their game.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="SuperChessPrep - Master Chess One Step Ahead">
+  <meta property="og:description" content="Master chess with daily exercises, video lessons, and expert analysis.">
+  <meta property="og:image" content="https://www.superchessprep.com/images/circle-logo.png">
+  <meta property="og:url" content="https://www.superchessprep.com/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 4. PRELOAD: Critical resources -->
+  <link rel="preload" as="image" href="/images/chess-pieces-background.webp" fetchpriority="high">
+
+  <!-- 5. CRITICAL CSS: Inlined for fastest FCP -->
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;transform:translateX(-100%);visibility:hidden}.mobile-drawer-overlay{position:fixed;opacity:0;visibility:hidden}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+
+  <!-- 6. ASYNC CSS: Non-blocking stylesheet loading -->
+  <link rel="preload" href="/css/bundle.min.css?v=20" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/bundle.min.css?v=20"></noscript>
+
+  <!-- 7. DEFERRED JS: Non-blocking JavaScript -->
+  <script defer src="/js/config.js"></script>
+  <script defer src="/js/bundle.min.js?v=5"></script>
+
+  <!-- 8. PAGE-SPECIFIC STYLES -->
+  <style>
+    /* Logo Container with brand text */
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-name {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .brand-tagline {
+      color: #ff8c00;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    /* Modern Chess Logo */
+    .partner-logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      padding: 10px 20px !important;
+      background: rgba(0, 0, 0, 0.4) !important;
+      border-radius: 25px !important;
+      border: 1px solid rgba(255, 140, 0, 0.2) !important;
+      transition: all 0.3s !important;
+      text-decoration: none !important;
+    }
+    .partner-logo:hover {
+      background: rgba(0, 0, 0, 0.6) !important;
+      border-color: rgba(0, 174, 239, 0.3) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 15px rgba(0, 174, 239, 0.2) !important;
+    }
+    .modern-chess-text {
+      font-size: 22px !important;
+      font-weight: 700 !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    .chess-icon {
+      color: #00aeef !important;
+      font-size: 24px !important;
+      margin-right: 6px !important;
+    }
+    .modern-text {
+      color: #00aeef !important;
+      margin-right: 4px !important;
+    }
+    .chess-text {
+      color: #ffffff !important;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .brand-text {
+        display: none;
+      }
+      .partner-logo {
+        display: none;
+      }
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <!-- Left Logo - NO lazy loading (above fold!) -->
+      <a href="/" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      
+      <div class="nav-right">
+        <!-- Right Logo - Modern Chess Partner -->
+        <a href="https://www.modern-chess.com/" target="_blank" class="partner-logo" rel="noopener">
+          <div class="modern-chess-text">
+            <span class="chess-icon">♞</span>
+            <span class="modern-text">Modern</span><span class="chess-text">Chess</span>
+          </div>
+        </a>
+      </div>
+      <button class="admin-header-btn" id="adminHeaderBtn" aria-label="Admin menu">
+        ⚙️
+        <div class="admin-dropdown" id="adminDropdown">
+          <div class="admin-dropdown-header"><span>Admin Panel</span></div>
+          <div class="admin-dropdown-search">
+            <span class="admin-dropdown-search-icon">🔍</span>
+            <input type="text" id="adminSearchInput" placeholder="Search...">
+          </div>
+          <div class="admin-dropdown-list" id="adminDropdownList"></div>
+        </div>
+      </button>
+      <div class="admin-dropdown-overlay" id="adminDropdownOverlay"></div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+  <nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+    <!-- Header -->
+    <div class="drawer-header">
+      <img loading="lazy" src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo" width="40" height="40">
+      <span class="drawer-title">SuperChessPrep</span>
+    </div>
+    
+    <!-- User Info (only when logged in) -->
+    <div class="drawer-user" id="drawerUserSection" style="display: none;">
+      <div class="drawer-user-info">
+        <div class="drawer-avatar">👤</div>
+        <div>
+          <div class="drawer-username" id="drawerUsername">Guest</div>
+          <div class="drawer-email" id="drawerEmail"></div>
+        </div>
+      </div>
+      <div class="drawer-tier-badge" id="drawerTierBadge">
+        <span id="drawerTierIcon">⭐</span>
+        <span id="drawerTierText">Free</span>
+      </div>
+    </div>
+    
+    <!-- Navigation (only when logged in) -->
+    <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+      <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+      <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+      <div class="drawer-nav-divider"></div>
+      <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+      <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+      <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+      <div class="drawer-nav-divider"></div>
+      <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+      <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+      <div class="drawer-nav-divider"></div>
+      <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+    
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+    
+    <!-- Login Section (only when NOT logged in) -->
+    <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+      <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+      <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+      <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+      <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+        <span>👋</span> Login
+      </a>
+      <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+        <span>✨</span> Create Account
+      </a>
+    </div>
+    
+    <!-- Logout (only when logged in) -->
+    <div class="drawer-footer">
+      <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+        <span>🚪</span> Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main id="main-content" role="main">
+    <section class="hero">
+      <h1>Super Chess Prep</h1>
+      <p class="slogan">One step ahead. Always</p>
+      <a href="/courses" class="hero-cta">Explore All Courses</a>
+    </section>
+
+    <!-- Latest Courses Section -->
+    <section class="courses-section">
+      <div class="section-header">
+        <h2 class="section-title">Latest Courses</h2>
+        <a href="/courses" class="view-all-btn">View All Courses</a>
+      </div>
+      
+      <div class="courses-grid" id="latestCourses">
+        <div class="loading">
+          <div class="loader"></div>
+          <p>Loading courses...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Section -->
+    <section class="bottom-cta">
+      <h3>Ready to Master Chess?</h3>
+      <p>Join thousands of players improving their game with our expert courses</p>
+      <div class="cta-button-group">
+        <a href="/courses" class="cta-primary">Browse All Courses</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-italic">Powered by Pier Dreams</p>
+  </footer>
+
+  <!-- Page-specific JavaScript -->
+  <script defer src="/js/home.js" ></script>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+    <a href="/" class="bottom-nav-item" data-page="home">
+      <span class="bottom-nav-icon">🏠</span>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+      <span class="bottom-nav-icon">📚</span>
+      <span class="bottom-nav-label">Courses</span>
+    </a>
+    <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+      <span class="bottom-nav-icon">♟️</span>
+    </a>
+    <a href="/community" class="bottom-nav-item" data-page="forum">
+      <span class="bottom-nav-icon">💬</span>
+      <span class="bottom-nav-label">Forum</span>
+    </a>
+    <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+      <span class="bottom-nav-icon">👤</span>
+      <span class="bottom-nav-label">Profile</span>
+    </a>
+  </nav>
+
+  <script defer src="/js/admin-header.js"></script>
+  <script defer src="/js/sw-register.js"></script>
+</body>
+</html>

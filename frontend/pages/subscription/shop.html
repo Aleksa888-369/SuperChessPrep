@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="description" content="SuperChessPrep Subscription Plans - Choose from Basic, Premium, or Elite plans. Unlock daily exercises, video lessons, and premium features.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Plans - SuperChessPrep</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #151515 50%, #0a0a0a 100%);
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
+    /* Header */
+    .header {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-container {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+    .circle-logo {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+                  linear-gradient(45deg, #ff8c00, #ffd700, #ff6347) border-box;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.4);
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(255, 140, 0, 0), 0 0 25px rgba(255, 215, 0, 0.5);
+      }
+    }
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 25px;
+      color: #ff8c00;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-button:hover {
+      background: rgba(255, 140, 0, 0.15);
+      border-color: #ff8c00;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+    }
+    /* Main Content */
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 50px 20px 100px;
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      color: #ff8c00;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 20px rgba(255, 140, 0, 0.4);
+    }
+    .page-subtitle {
+      font-size: 18px;
+      color: #ffbfaa;
+      margin-bottom: 10px;
+    }
+    .current-plan {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba(255, 140, 0, 0.1);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 20px;
+      color: #ff8c00;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* ========== NEW PRICING CARDS WITH BACKGROUND IMAGES ========== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1100px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+      }
+    }
+    @media (max-width: 700px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+      .page-title {
+        font-size: 36px;
+      }
+    }
+
+    /* Card Base - Full Background Image */
+    .pricing-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      min-height: 600px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pricing-card:hover {
+      transform: translateY(-14px) scale(1.02);
+    }
+
+    /* Background Image Layer */
+    .card-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+    .card-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Image positioning per tier */
+    .pricing-card.card-basic .card-bg img {
+      object-position: center 35%;
+    }
+    .pricing-card.card-premium .card-bg img {
+      object-position: center 30%;
+    }
+    .pricing-card.card-elite .card-bg img {
+      object-position: center 40%;
+    }
+
+    /* Dark Overlay for Text Readability */
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+    }
+    .overlay-basic {
+      background: linear-gradient(180deg, 
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.15) 30%,
+        rgba(0,0,0,0.5) 55%,
+        rgba(0,0,0,0.85) 75%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+    .overlay-premium {
+      background: linear-gradient(180deg, 
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.1) 30%,
+        rgba(0,0,0,0.45) 55%,
+        rgba(0,0,0,0.82) 75%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+    .overlay-elite {
+      background: linear-gradient(180deg, 
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.1) 30%,
+        rgba(0,0,0,0.4) 55%,
+        rgba(0,0,0,0.8) 75%,
+        rgba(0,0,0,0.95) 100%
+      );
+    }
+
+    /* Card Border Glow Effect */
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 24px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255,140,0,0.3), rgba(255,140,0,0.1));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: 2;
+      pointer-events: none;
+      transition: all 0.4s;
+    }
+
+    /* Hover Border Effects per Tier */
+    .pricing-card.card-basic:hover::before {
+      background: linear-gradient(135deg, rgba(192,192,192,0.9), rgba(192,192,192,0.4));
+    }
+    .pricing-card.card-premium::before {
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(255,215,0,0.6), rgba(255,140,0,0.3));
+    }
+    .pricing-card.card-premium:hover::before {
+      background: linear-gradient(135deg, rgba(255,215,0,1), rgba(255,140,0,0.6));
+    }
+    .pricing-card.card-elite:hover::before {
+      background: linear-gradient(135deg, rgba(100,149,237,0.9), rgba(65,105,225,0.4));
+    }
+
+    /* Hover Shadow Effects per Tier */
+    .pricing-card.card-basic:hover {
+      box-shadow: 0 30px 70px rgba(192,192,192,0.3);
+    }
+    .pricing-card.card-premium:hover {
+      box-shadow: 0 30px 70px rgba(255,215,0,0.35);
+    }
+    .pricing-card.card-elite:hover {
+      box-shadow: 0 30px 70px rgba(100,149,237,0.35);
+    }
+
+    /* ✅ Rotated Ribbon Style */
+    .featured-badge {
+      position: absolute;
+      top: 25px;
+      right: -35px;
+      padding: 8px 50px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      z-index: 10;
+      transform: rotate(45deg);
+      text-transform: uppercase;
+    }
+    .badge-gold { 
+      background: linear-gradient(135deg, #FFD700, #ff8c00); 
+      color: #1a1a1a;
+      box-shadow: 0 4px 15px rgba(255,215,0,0.5);
+    }
+    .badge-blue { 
+      background: linear-gradient(135deg, #4169E1, #6495ED);
+      color: white;
+      box-shadow: 0 4px 15px rgba(65,105,225,0.5);
+    }
+
+    /* Card Content - Positioned at Bottom */
+    .card-content {
+      position: relative;
+      z-index: 3;
+      padding: 30px 28px 32px;
+      height: 100%;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .plan-name {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-align: center;
+      text-shadow: 0 3px 25px rgba(0,0,0,0.9);
+    }
+    .plan-name-silver { color: #E8E8E8; }
+    .plan-name-gold { color: #FFD700; text-shadow: 0 3px 25px rgba(255,215,0,0.6), 0 0 40px rgba(255,215,0,0.3); }
+    .plan-name-blue { color: #87CEEB; text-shadow: 0 3px 25px rgba(135,206,235,0.6), 0 0 40px rgba(135,206,235,0.3); }
+
+    .plan-price {
+      font-size: 44px;
+      font-weight: 800;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: 0 3px 20px rgba(0,0,0,0.9);
+    }
+    .plan-price span {
+      font-size: 18px;
+      color: #ccc;
+      font-weight: 500;
+    }
+    .plan-period {
+      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      margin-bottom: 22px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px 0;
+    }
+    .plan-features li {
+      padding: 10px 0;
+      color: #f5f5f5;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+    }
+    .plan-features li:last-child { 
+      border-bottom: none; 
+    }
+    .feature-icon { 
+      font-size: 14px; 
+      font-weight: bold;
+      text-shadow: none;
+    }
+    .icon-silver { color: #D0D0D0; filter: drop-shadow(0 0 6px rgba(192,192,192,0.7)); }
+    .icon-gold { color: #FFD700; filter: drop-shadow(0 0 6px rgba(255,215,0,0.7)); }
+    .icon-blue { color: #87CEEB; filter: drop-shadow(0 0 6px rgba(135,206,235,0.7)); }
+
+    /* Buttons */
+    .plan-button {
+      width: 100%;
+      padding: 15px 28px;
+      border: none;
+      border-radius: 28px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .btn-silver {
+      background: linear-gradient(135deg, #909090, #C0C0C0, #A0A0A0);
+      color: #1a1a1a;
+      box-shadow: 0 8px 30px rgba(192, 192, 192, 0.4);
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #DAA520, #FFD700, #FFA500);
+      color: #1a1a1a;
+      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.45);
+    }
+    .btn-blue {
+      background: linear-gradient(135deg, #4169E1, #6495ED, #4682B4);
+      color: white;
+      box-shadow: 0 8px 30px rgba(100, 149, 237, 0.45);
+    }
+    .plan-button:hover {
+      transform: translateY(-4px);
+      filter: brightness(1.15);
+    }
+    .btn-silver:hover { box-shadow: 0 12px 40px rgba(192, 192, 192, 0.6); }
+    .btn-gold:hover { box-shadow: 0 12px 40px rgba(255, 215, 0, 0.65); }
+    .btn-blue:hover { box-shadow: 0 12px 40px rgba(100, 149, 237, 0.6); }
+
+    .plan-button:disabled {
+      background: rgba(100, 100, 100, 0.5) !important;
+      cursor: not-allowed;
+      box-shadow: none !important;
+      color: #888 !important;
+    }
+    .plan-button:disabled:hover {
+      transform: none;
+      filter: none;
+    }
+    .plan-button.current {
+      background: rgba(255, 140, 0, 0.2) !important;
+      color: #ff8c00 !important;
+      border: 2px solid #ff8c00;
+      box-shadow: 0 0 20px rgba(255, 140, 0, 0.3) !important;
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading-overlay.show {
+      display: flex;
+    }
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 140, 0, 0.2);
+      border-top-color: #ff8c00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-text {
+      font-size: 18px;
+      color: #ff8c00;
+    }
+    /* Popup Notification */
+    .popup-notification {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: rgba(20, 20, 20, 0.98);
+      border: 2px solid #ff8c00;
+      border-radius: 15px;
+      padding: 20px 30px;
+      box-shadow: 0 10px 40px rgba(255, 140, 0, 0.4);
+      display: none;
+      z-index: 10000;
+      backdrop-filter: blur(10px);
+      animation: slideIn 0.3s ease;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .popup-notification.show {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .popup-icon {
+      font-size: 24px;
+    }
+    .popup-message {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  </style>
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+<!-- ✅ NOVO: REŠENJE 1 - Auto Clear Preflight Cache -->
+<script>
+(function() {
+  // Clear all caches
+  if ('caches' in window) {
+    caches.keys().then(keys => keys.forEach(key => caches.delete(key)));
+  }
+  
+  // One-time reload to clear preflight cache
+  const cacheKey = 'shop_preflight_cleared_v3';
+  if (!sessionStorage.getItem(cacheKey)) {
+    sessionStorage.setItem(cacheKey, '1');
+    console.log('🧹 Clearing preflight cache...');
+    setTimeout(() => location.reload(true), 100);
+  }
+})();
+</script>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/dashboard" class="dashboard-button">&larr; Back to Dashboard</a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+  
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Choose Your Plan</h1>
+      <p class="page-subtitle">Unlock your chess potential with our premium features</p>
+      <div id="currentPlanBadge" class="current-plan" style="display: none;">
+        Current Plan: <span id="currentPlanName">Free</span>
+      </div>
+    </div>
+
+    <!-- ========== PRICING CARDS ========== -->
+    <div class="pricing-grid">
+      
+      <!-- ✅ BASIC Plan - Silver Knight -->
+      <div class="pricing-card card-basic">
+        <div class="card-bg">
+          <img loading="lazy" src="/images/tier-basic.webp" alt="Basic Plan">
+        </div>
+        <div class="card-overlay overlay-basic"></div>
+        
+        <div class="card-content">
+          <h2 class="plan-name plan-name-silver">Basic</h2>
+          <div class="plan-price">$4<span>.99/mo</span></div>
+          <p class="plan-period">Billed monthly</p>
+          
+          <ul class="plan-features">
+            <li>
+              <span class="feature-icon icon-silver">✓</span>
+              <span>5 daily exercises</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-silver">✓</span>
+              <span>Video lessons access</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-silver">✓</span>
+              <span>Community forum</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-silver">✓</span>
+              <span>Chess news & updates</span>
+            </li>
+          </ul>
+          
+          <button class="plan-button btn-silver" id="basicButton" onclick="selectPlan('basic')">
+            Get Basic
+          </button>
+        </div>
+      </div>
+
+      <!-- ✅ PREMIUM Plan - Gold Knight -->
+      <div class="pricing-card card-premium">
+        <div class="featured-badge badge-gold">POPULAR</div>
+        
+        <div class="card-bg">
+          <img loading="lazy" src="/images/tier-premium.webp" alt="Premium Plan">
+        </div>
+        <div class="card-overlay overlay-premium"></div>
+        
+        <div class="card-content">
+          <h2 class="plan-name plan-name-gold">Premium</h2>
+          <div class="plan-price">$9<span>.99/mo</span></div>
+          <p class="plan-period">Billed monthly</p>
+          
+          <ul class="plan-features">
+            <li>
+              <span class="feature-icon icon-gold">✓</span>
+              <span>15 daily exercises</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-gold">✓</span>
+              <span>Full video library</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-gold">✓</span>
+              <span>Community forum</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-gold">✓</span>
+              <span>Chess news & updates</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-gold">✓</span>
+              <span>Priority support</span>
+            </li>
+          </ul>
+          
+          <button class="plan-button btn-gold" id="premiumButton" onclick="selectPlan('premium')">
+            Get Premium
+          </button>
+        </div>
+      </div>
+
+      <!-- ✅ ELITE Plan - Blue Cosmic Knight -->
+      <div class="pricing-card card-elite">
+        <div class="featured-badge badge-blue">BEST VALUE</div>
+        
+        <div class="card-bg">
+          <img loading="lazy" src="/images/tier-elite.webp" alt="Elite Plan">
+        </div>
+        <div class="card-overlay overlay-elite"></div>
+        
+        <div class="card-content">
+          <h2 class="plan-name plan-name-blue">Elite</h2>
+          <div class="plan-price">$19<span>.99/mo</span></div>
+          <p class="plan-period">Billed monthly</p>
+          
+          <ul class="plan-features">
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>30 daily exercises</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>Full video library</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>Community forum</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>Chess news & updates</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>Priority support</span>
+            </li>
+            <li>
+              <span class="feature-icon icon-blue">✓</span>
+              <span>Progress analytics</span>
+            </li>
+          </ul>
+          
+          <button class="plan-button btn-blue" id="eliteButton" onclick="selectPlan('elite')">
+            Get Elite
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Processing your request...</div>
+    </div>
+  </div>
+
+  <!-- Popup Notification -->
+  <div id="popupNotification" class="popup-notification">
+    <span class="popup-icon" id="popupIcon">ℹ️</span>
+    <span class="popup-message" id="popupMessage"></span>
+  </div>
+
+  <script>
+     // Auto-detect environment
+    const PAYMENT_API_URL = window.location.hostname === 'localhost' 
+       ?  'http://localhost:3004' 
+       :  'https://payments.superchessprep.com';
+       console.log('🌐 PAYMENT_API_URL:', PAYMENT_API_URL);
+       
+    let currentUserTier = 'free';
+
+    function showPopupNotification(message, icon = 'ℹ️', duration = 3000) {
+      const popup = document.getElementById('popupNotification');
+      const popupIcon = document.getElementById('popupIcon');
+      const popupMessage = document.getElementById('popupMessage');
+      
+      popupIcon.textContent = icon;
+      popupMessage.textContent = message;
+      popup.classList.add('show');
+      
+      setTimeout(() => {
+        popup.classList.remove('show');
+      }, duration);
+    }
+
+    function showLoading(show = true) {
+      const overlay = document.getElementById('loadingOverlay');
+      if (show) {
+        overlay.classList.add('show');
+      } else {
+        overlay.classList.remove('show');
+      }
+    }
+
+    function calculateDaysRemaining(expiresAt) {
+      if (!expiresAt) return null;
+      
+      const now = new Date();
+      const expiry = new Date(expiresAt);
+      
+      if (isNaN(expiry.getTime())) return null;
+      
+      const diffTime = expiry - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays < 0) return -1;
+      
+      return diffDays;
+    }
+
+    function updateUIForCurrentTier(tier, expiresAt = null) {
+      console.log('🎨 updateUIForCurrentTier called:', { tier, expiresAt });
+      
+      const currentPlanBadge = document.getElementById('currentPlanBadge');
+      const currentPlanName = document.getElementById('currentPlanName');
+      
+      currentPlanBadge.style.display = 'inline-block';
+      currentPlanName.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
+
+      // Show days remaining for paid tiers
+      if (['basic', 'premium', 'elite'].includes(tier) && expiresAt) {
+        const daysRemaining = calculateDaysRemaining(expiresAt);
+        
+        if (daysRemaining === -1) {
+          let daysText = document.getElementById('daysRemainingText');
+          if (!daysText) {
+            daysText = document.createElement('div');
+            daysText.id = 'daysRemainingText';
+            daysText.style.marginTop = '10px';
+            daysText.style.fontSize = '16px';
+            daysText.style.fontWeight = 'bold';
+            currentPlanBadge.appendChild(daysText);
+          }
+          
+          daysText.style.color = '#ff4444';
+          daysText.textContent = 'EXPIRED - Contact Support';
+          showPopupNotification('Your subscription has expired. Please renew.', '⚠️', 5000);
+          
+        } else if (daysRemaining !== null && daysRemaining >= 0) {
+          let daysText = document.getElementById('daysRemainingText');
+          if (!daysText) {
+            daysText = document.createElement('div');
+            daysText.id = 'daysRemainingText';
+            daysText.style.marginTop = '10px';
+            daysText.style.fontSize = '16px';
+            daysText.style.fontWeight = 'bold';
+            currentPlanBadge.appendChild(daysText);
+          }
+          
+          daysText.style.color = daysRemaining <= 7 ? '#ff4444' : '#ffbfaa';
+          daysText.textContent = `${daysRemaining} days remaining`;
+        }
+      }
+
+      // ✅ All buttons always visible, mark current plan
+      const buttons = {
+        basic: document.getElementById('basicButton'),
+        premium: document.getElementById('premiumButton'),
+        elite: document.getElementById('eliteButton')
+      };
+
+      // Reset all buttons
+      Object.entries(buttons).forEach(([btnTier, btn]) => {
+        btn.disabled = false;
+        btn.classList.remove('current');
+        btn.textContent = `Get ${btnTier.charAt(0).toUpperCase() + btnTier.slice(1)}`;
+      });
+
+      // Mark current plan (only for paid tiers)
+      if (buttons[tier]) {
+        buttons[tier].disabled = true;
+        buttons[tier].classList.add('current');
+        buttons[tier].textContent = 'Current Plan';
+      }
+      
+      console.log('✅ UI updated successfully');
+    }
+
+  async function loadSubscriptionStatus(maxRetries = 5, baseDelay = 1000) {
+   let attempt = 0;
+  
+   console.log('🔄 Loading subscription status...');
+  
+   const token = localStorage.getItem('auth_token');
+   if (!token) {
+    Logger.warn('⚠️ No token found, using Free tier as default');
+    currentUserTier = 'free';
+    updateUIForCurrentTier('free', null);
+    return;
+   }
+
+  // Check if this is after a reload
+   const reloadAttempted = sessionStorage.getItem('subscription_reload_attempted');
+  
+   while (attempt < maxRetries) {
+    attempt++;
+    
+    try {
+      const delay = Math.min(attempt * baseDelay, 5000);
+      
+      if (attempt > 1) {
+        console.log(`⏳ Retry ${attempt}/${maxRetries} after ${delay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+
+      const cacheBuster = `?_t=${Date.now()}`;
+      const response = await fetch(`${PAYMENT_API_URL}/api/subscription/status${cacheBuster}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        cache: 'no-store',
+        mode: 'cors'
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        Logger.error('❌ Auth error, falling back to Free tier');
+        currentUserTier = 'free';
+        updateUIForCurrentTier('free', null);
+        return;
+      }
+
+      if (response.status === 404) {
+        if (attempt < maxRetries) {
+          Logger.warn(`⚠️ Got 404 (subscription not ready yet), retrying...`);
+          continue;
+        } else {
+          // NEW: Reload instead of setting to free
+          if (!reloadAttempted) {
+            Logger.warn('⚠️ Still 404 after retries, reloading page...');
+            sessionStorage.setItem('subscription_reload_attempted', '1');
+            showPopupNotification('Refreshing page...', '🔄', 1500);
+            setTimeout(() => location.reload(), 1500);
+            return;
+          } else {
+            Logger.warn('⚠️ Still 404 even after reload, using Free tier');
+            currentUserTier = 'free';
+            updateUIForCurrentTier('free', null);
+            sessionStorage.removeItem('subscription_reload_attempted');
+            return;
+          }
+        }
+      }
+
+      if (response.status >= 500) {
+        Logger.error(`❌ Server error ${response.status}, retrying...`);
+        continue;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('📋 Subscription data received:', data);
+      
+      // Success - clear reload flag
+      sessionStorage.removeItem('subscription_reload_attempted');
+      
+      currentUserTier = data.subscription?.tier || 'free';
+      const expiresAt = data.subscription?.expiresAt;
+
+      if (expiresAt && new Date(expiresAt) < new Date() && 
+          ['basic', 'premium', 'elite'].includes(currentUserTier)) {
+        console.log('⚠️ SUBSCRIPTION EXPIRED, downgrading to Free');
+        showPopupNotification('Your subscription has expired. Please renew.', '⚠️', 5000);
+        currentUserTier = 'free';
+      }
+
+      updateUIForCurrentTier(currentUserTier, expiresAt);
+      console.log('✅ Subscription status loaded successfully');
+      return;
+
+    } catch (error) {
+      Logger.error(`❌ Attempt ${attempt} failed:`, error.message);
+      
+      if (attempt >= maxRetries) {
+        // NEW: Reload instead of error
+        if (!reloadAttempted) {
+          Logger.error('❌ All retry attempts exhausted, reloading page...');
+          sessionStorage.setItem('subscription_reload_attempted', '1');
+          showPopupNotification('Connection issues, refreshing...', '🔄', 1500);
+          setTimeout(() => location.reload(), 1500);
+          return;
+        } else {
+          Logger.error('❌ Failed even after reload');
+          showPopupNotification('Unable to load subscription status', '⚠️', 4000);
+          currentUserTier = 'free';
+          updateUIForCurrentTier('free', null);
+          sessionStorage.removeItem('subscription_reload_attempted');
+          return;
+        }
+      }
+    }
+   }
+  }
+
+    async function selectPlan(tier, retryCount = 0) {
+      const MAX_RETRIES = 5;
+      const BASE_DELAY = 1000;
+    
+      try {
+        console.log(`🛒 Selecting plan: ${tier} (attempt ${retryCount + 1}/${MAX_RETRIES})`);
+        
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+          showPopupNotification('Please login first', '🔒');
+          setTimeout(() => window.location.href = '/', 1500);
+          return;
+        }
+
+        if (tier === currentUserTier) {
+          showPopupNotification('This is your current plan', 'ℹ️');
+          return;
+        }
+
+        // Show retry status
+        if (retryCount > 0) {
+          showPopupNotification(`Retrying... (${retryCount}/${MAX_RETRIES})`, '🔄', 2000);
+        } else {
+          showLoading(true);
+        }
+
+        // ✅ CACHE BUSTING for checkout!
+        const cacheBuster = `?_t=${Date.now()}`;
+
+        const response = await fetch(`${PAYMENT_API_URL}/api/subscription/checkout${cacheBuster}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ tier }),
+          cache: 'no-store',  // ✅ CRITICAL!
+          mode: 'cors'
+        });
+
+        // ✅ Handle failed preflight (CORS) - RETRY
+        if (!response.ok && retryCount < MAX_RETRIES) {
+          const delay = Math.min((retryCount + 1) * BASE_DELAY, 5000);
+          Logger.warn(`⚠️ Request failed (status ${response.status}), retrying in ${delay}ms...`);
+          
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return selectPlan(tier, retryCount + 1);
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Failed to create checkout session');
+        }
+
+        showPopupNotification('Redirecting to payment...', '💳');
+        setTimeout(() => {
+          window.location.href = data.url;
+        }, 1000);
+
+      } catch (error) {
+        Logger.error(`❌ Error selecting plan (attempt ${retryCount + 1}):`, error);
+        
+        // ✅ RETRY on network/CORS errors
+        if (retryCount < MAX_RETRIES && (
+          error.message.includes('Failed to fetch') || 
+          error.message.includes('NetworkError') ||
+          error.message.includes('CORS')
+        )) {
+          const delay = Math.min((retryCount + 1) * BASE_DELAY, 5000);
+          console.log(`🔄 Retrying after ${delay}ms...`);
+          
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return selectPlan(tier, retryCount + 1);
+        }
+        
+        // Final fail
+        showLoading(false);
+        showPopupNotification(
+          error.message || 'Failed to process request. Please try again.', 
+          '⚠️', 
+          5000
+        );
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('🚀 Page loaded, initializing...');
+      
+      // Check if coming from payment success
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+      
+      if (sessionId) {
+        console.log('💳 Detected payment session, waiting a bit longer for activation...');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+      
+      await loadSubscriptionStatus();
+    });
+  </script>
+
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+<script src="/js/header-component.js" defer></script>
+</body>
+</html>

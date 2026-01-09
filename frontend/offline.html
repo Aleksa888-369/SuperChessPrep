@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - SuperChessPrep</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container { max-width: 500px; }
+    .icon { font-size: 80px; margin-bottom: 20px; }
+    h1 { font-size: 36px; color: #f39c12; margin-bottom: 15px; }
+    p { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+    button {
+      padding: 15px 30px;
+      background: #f39c12;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover { background: #e67e22; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>It looks like you've lost your internet connection. Some features may not be available until you're back online.</p>
+    <button onclick="location.reload()">Try Again</button>
+  </div>
+</body>
+</html>

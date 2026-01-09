@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PGN Management - Admin Panel</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♟</text></svg>">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/admin/pgn/admin-pgn.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+<script src="/js/auth-helper.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="55" height="55">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/admin" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Admin Panel</span>
+        </a>
+        <a href="/dashboard" class="dashboard-button">
+          <span>&#8592;</span>
+          <span>Back to Dashboard</span>
+        </a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img loading="lazy" src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">⚙️ PGN Management</h1>
+      <p class="page-subtitle">Upload and manage chess exercises</p>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <h2 class="section-title">📤 Upload PGN Files</h2>
+      
+      <form id="uploadForm">
+        
+        <!-- File Input -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">📄</span>
+            <span>Select PGN File(s)</span>
+            <span class="label-required">*</span>
+          </label>
+          <input 
+            type="file" 
+            id="pgnFiles" 
+            name="pgnFiles" 
+            accept=".pgn"
+            multiple
+            required
+            class="file-input">
+          <div class="file-info" id="fileInfo">No files selected</div>
+        </div>
+
+        <!-- ✅ Multiple Tier Selection with Checkboxes -->
+        <div class="form-group">
+          <label class="form-label">
+            <span class="label-icon">💎</span>
+            <span>Available in Tiers</span>
+            <span class="label-required">*</span>
+          </label>
+          <div class="tier-checkbox-group">
+            <label class="tier-checkbox-label">
+              <input type="checkbox" name="tiers[]" value="basic" class="tier-checkbox">
+              <span class="tier-checkbox-text">Basic (max 5 exercises)</span>
+            </label>
+            <label class="tier-checkbox-label">
+              <input type="checkbox" name="tiers[]" value="premium" class="tier-checkbox">
+              <span class="tier-checkbox-text">Premium (max 15 exercises)</span>
+            </label>
+            <label class="tier-checkbox-label">
+              <input type="checkbox" name="tiers[]" value="elite" class="tier-checkbox">
+              <span class="tier-checkbox-text">Elite (max 30 exercises)</span>
+            </label>
+          </div>
+          <small class="form-hint" id="tierLimitInfo">Select at least one tier</small>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn" id="uploadBtn">
+          <span class="btn-icon">📤</span>
+          <span>Upload PGN Files</span>
+        </button>
+
+      </form>
+
+      <!-- Upload Progress -->
+      <div id="uploadProgress" class="upload-progress" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Uploading files...</p>
+      </div>
+
+      <!-- Upload Results -->
+      <div id="uploadResults" class="upload-results"></div>
+
+    </div>
+
+    <!-- Exercises List Section -->
+    <div class="list-section">
+      <div class="section-header">
+        <h2 class="section-title">📋 Manage Exercises</h2>
+        <button onclick="filterExercises()" class="refresh-btn">
+          <span>🔄</span>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters">
+        <select id="filterPage" class="filter-select" onchange="filterExercises()">
+          <option value="">All Pages</option>
+          <option value="daily-exercises">Daily Exercises</option>
+        </select>
+        
+        <select id="filterTier" class="filter-select" onchange="filterExercises()">
+          <option value="">All Tiers</option>
+          <option value="basic">Basic</option>
+          <option value="premium">Premium</option>
+          <option value="elite">Elite</option>
+        </select>
+      </div>
+
+      <!-- Tier Statistics -->
+      <div class="tier-stats-enhanced" id="tierStats">
+        <div class="tier-card basic-card">
+          <div class="tier-icon">♟️</div>
+          <div class="tier-info">
+            <div class="tier-name">Basic</div>
+            <div class="tier-count">
+              <span id="basicCount">0</span>
+              <span class="tier-total">/ 5</span>
+            </div>
+          </div>
+          <div class="tier-progress">
+            <div class="progress-bar-enhanced">
+              <div class="progress-fill-enhanced basic-progress" id="basicProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tier-card premium-card">
+          <div class="tier-icon">♞</div>
+          <div class="tier-info">
+            <div class="tier-name">Premium</div>
+            <div class="tier-count">
+              <span id="premiumCount">0</span>
+              <span class="tier-total">/ 15</span>
+            </div>
+          </div>
+          <div class="tier-progress">
+            <div class="progress-bar-enhanced">
+              <div class="progress-fill-enhanced premium-progress" id="premiumProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tier-card elite-card">
+          <div class="tier-icon">♔</div>
+          <div class="tier-info">
+            <div class="tier-name">Elite</div>
+            <div class="tier-count">
+              <span id="eliteCount">0</span>
+              <span class="tier-total">/ 30</span>
+            </div>
+          </div>
+          <div class="tier-progress">
+            <div class="progress-bar-enhanced">
+              <div class="progress-fill-enhanced elite-progress" id="eliteProgress" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="tableLoading" class="table-loading">
+        <div class="loading-spinner"></div>
+        <p>Loading exercises...</p>
+      </div>
+
+      <!-- Exercises Table -->
+      <div class="table-container" id="tableContainer" style="display: none;">
+        <table class="exercises-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Players</th>
+              <th>Page</th>
+              <th>Tier</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="exercisesTableBody">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+        
+        <!-- Pagination -->
+        <div id="paginationContainer" class="pagination-container">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ============================================ -->
+  <!-- EDIT MODAL - WITH PGN EDITOR TABS -->
+  <!-- ✅ UPDATED: Removed Page dropdown - Page cannot be changed after creation -->
+  <!-- ============================================ -->
+  <div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content modal-content-large">
+      <div class="modal-header">
+        <h3>✏️ Edit Exercise</h3>
+        <button onclick="closeEditModal()" class="close-btn">✕</button>
+      </div>
+      
+      <!-- Editor Tabs -->
+      <div class="editor-tabs">
+        <button class="editor-tab active" data-tab="basic" onclick="switchEditorTab('basic')">
+          📋 Basic Info
+        </button>
+        <button class="editor-tab" data-tab="pgn" onclick="switchEditorTab('pgn')">
+          📝 PGN Editor
+        </button>
+        <button class="editor-tab" data-tab="preview" onclick="switchEditorTab('preview')">
+          👁️ Preview
+        </button>
+      </div>
+      
+      <form id="editForm">
+        <input type="hidden" id="editExerciseId">
+        
+        <!-- Basic Info Tab -->
+        <!-- ✅ UPDATED: Removed Page dropdown - exercises are always on daily-exercises -->
+        <div id="tabBasic" class="editor-tab-content active">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" id="editTitle" class="form-input" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Required Tier</label>
+              <select id="editTier" class="form-select">
+                <option value="basic">Basic</option>
+                <option value="premium">Premium</option>
+                <option value="elite">Elite</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label checkbox-label">
+                <input type="checkbox" id="editActive" checked>
+                <span>Active</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- PGN Editor Tab -->
+        <div id="tabPgn" class="editor-tab-content">
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-icon">📄</span>
+              <span>PGN Content</span>
+              <span class="pgn-hint">(Add comments in {curly braces})</span>
+            </label>
+            <textarea 
+              id="editPgnContent" 
+              class="pgn-textarea"
+              placeholder="[Event &quot;Training Game&quot;]
+[White &quot;Player1&quot;]
+[Black &quot;Player2&quot;]
+
+1. e4 {This is a comment for e4} e5 
+2. Nf3 {Attacking the e5 pawn} Nc6 {Knight defends}"
+            ></textarea>
+          </div>
+          
+          <div class="pgn-help-box">
+            <p class="help-title">💡 How to add comments:</p>
+            <p class="help-text">
+              Write comments in curly braces after any move:<br>
+              <code>1. e4 {Controls the center} e5 {Symmetric response}</code>
+            </p>
+          </div>
+        </div>
+
+        <!-- Preview Tab -->
+        <div id="tabPreview" class="editor-tab-content">
+          <div class="preview-container">
+            <h4 class="preview-title">👁️ Preview - How users will see it</h4>
+            <div id="pgnPreviewContent" class="pgn-preview">
+              <!-- Generated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" onclick="closeEditModal()" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn-primary">💾 Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ CUSTOM DELETE CONFIRMATION MODAL -->
+  <div id="deleteConfirmModal" class="modal custom-delete-modal" style="display: none;">
+    <div class="modal-content delete-modal-content">
+      <div class="delete-icon-container">
+        <div class="delete-icon">⚠️</div>
+      </div>
+      <h3 class="delete-title">Are you sure you want to PERMANENTLY DELETE this exercise?</h3>
+      <p class="delete-message">This action CANNOT be undone!</p>
+      <div class="delete-modal-actions">
+        <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
+        <button onclick="confirmDelete()" class="btn-delete">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div id="customAlertModal" class="modal custom-alert-modal" style="display: none;">
+    <div class="modal-content custom-alert-content">
+      <div class="alert-icon" id="alertIcon">⚠️</div>
+      <div class="alert-title" id="alertTitle">Alert</div>
+      <div class="alert-message" id="alertMessage">Message goes here</div>
+      <button onclick="closeCustomAlert()" class="alert-btn">OK</button>
+    </div>
+  </div>
+
+  <script src="/admin/pgn/admin-pgn.js?v=7"></script>
+
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+</body>
+</html>

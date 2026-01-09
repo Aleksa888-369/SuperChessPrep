@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>500 - Server Error | SuperChessPrep</title>
+  <meta name="description" content="Something went wrong on our end. We're working to fix it.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container { max-width: 600px; }
+    .chess-piece { 
+      font-size: 120px; 
+      margin-bottom: 20px; 
+      animation: shake 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes shake {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+    h1 { 
+      font-size: 72px; 
+      color: #e74c3c; 
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+    }
+    h2 { 
+      font-size: 28px; 
+      margin-bottom: 20px; 
+      font-weight: 400;
+      color: #ecf0f1;
+    }
+    p { 
+      color: #bdc3c7; 
+      margin-bottom: 30px; 
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+      margin: 0 10px;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid #3498db;
+    }
+    .btn-secondary:hover {
+      background: rgba(52, 152, 219, 0.1);
+    }
+    .buttons { margin-top: 20px; }
+    .status-info {
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    .status-info code {
+      background: rgba(0,0,0,0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="chess-piece">♜</div>
+    <h1>500</h1>
+    <h2>Oops! Something Went Wrong</h2>
+    <p>Our servers are having a tough game right now. Don't worry, our team has been notified and we're working on getting things back to normal.</p>
+    <div class="buttons">
+      <a href="/" class="btn">← Back to Home</a>
+      <a href="javascript:location.reload()" class="btn btn-secondary">Try Again</a>
+    </div>
+    <div class="status-info">
+      <p>If this problem persists, please contact us at <code>support@superchessprep.com</code></p>
+      <p>Error Code: <code>500 Internal Server Error</code></p>
+    </div>
+  </div>
+</body>
+</html>

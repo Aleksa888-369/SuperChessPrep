@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta charset="UTF-8">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:title" content="Daily Chess Exercises - SuperChessPrep">
+  <meta property="og:description" content="Improve your tactical skills with daily chess puzzles.">
+  <meta property="og:image" content="https://www.superchessprep.com/images/circle-logo.png">
+  <meta property="og:url" content="https://www.superchessprep.com/exercises">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Daily Chess Exercises - Improve your tactical skills with carefully curated puzzles. Practice openings, middlegame tactics, and endgames.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Exercises - SuperChessPrep</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="/pages/exercises/daily-exercises.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/dashboard" class="dashboard-button">&larr; Back to Dashboard</a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+  
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <div class="page-header">
+      <h1 class="page-title">♞ Daily Exercises</h1>
+      <p class="page-subtitle">Improve your chess skills with daily puzzles and exercises</p>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingState" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading exercises...</p>
+    </div>
+
+    <!-- Upgrade Message -->
+    <div id="upgradeMessage" class="upgrade-message" style="display: none;">
+      <div class="upgrade-icon">🔒</div>
+      <h2>Daily Exercises Are Premium Content</h2>
+      <p>Subscribe to unlock access to daily chess puzzles and training exercises.</p>
+      <button onclick="window.location.href='/subscription'" class="upgrade-btn">View Subscription Plans</button>
+    </div>
+
+    <!-- Admin Tier Selector -->
+    <div id="adminTierSelector" class="admin-tier-selector" style="display: none;">
+      <span class="admin-icon">⚙️</span>
+      <select id="adminViewAsSelect" class="admin-select" onchange="handleAdminViewChange()">
+        <option value="elite">Elite Tier</option>
+        <option value="premium">Premium Tier</option>
+        <option value="basic">Basic Tier</option>
+      </select>
+    </div>
+
+    <!-- Tier Upgrade Message -->
+    <div id="tierUpgradeMessage" class="tier-upgrade-message" style="display: none;">
+      <div class="tier-upgrade-content">
+        <span class="tier-upgrade-icon">💎</span>
+        <div class="tier-upgrade-text">
+          <p id="tierUpgradeTitle">Want more exercises?</p>
+          <p id="tierUpgradeSubtext">Upgrade to access more daily training content</p>
+        </div>
+        <button onclick="window.location.href='/subscription'" class="tier-upgrade-btn">Upgrade Now</button>
+      </div>
+    </div>
+
+    <!-- Exercises Container -->
+    <div id="exercisesContainer" class="exercises-container" style="display: none;">
+      
+      <!-- PGN Selector (dropdown style) -->
+      <div class="pgn-selector-wrapper">
+        <div class="pgn-selector">
+          <label for="pgnDropdown" class="selector-label">📋 Select Exercise:</label>
+          <div class="dropdown-search-container">
+            <input type="text" id="pgnSearchInput" class="pgn-search-input" placeholder="Search exercises..." oninput="filterExercises()">
+            <select id="pgnDropdown" class="pgn-dropdown" onchange="handleExerciseSelect()">
+              <option value="">-- Choose an exercise --</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Board + Sidelines -->
+      <div class="board-sidelines-wrapper">
+        
+        <!-- Placeholder -->
+        <div id="boardPlaceholder" class="board-placeholder">
+          <div class="placeholder-icon">♞</div>
+          <p>Select an exercise from the dropdown above</p>
+        </div>
+
+        <!-- Board + Sidelines Container (ChessTempo layout) -->
+        <div id="boardSidelinesContainer" class="board-sidelines-container" style="display: none;">
+          
+          <!-- LEFT: Board -->
+          <div class="board-section">
+            <div class="board-header">
+              <h3 id="boardTitle">White - Black *</h3>
+            </div>
+            
+            <div id="chessboard" class="chessboard-wrapper"></div>
+            
+            <div class="board-controls">
+              <button onclick="resetBoard()" class="control-btn" title="Reset">⏮</button>
+              <button onclick="previousMove()" class="control-btn" id="prevBtn" title="Previous">◀</button>
+              <div class="move-counter" id="moveCounter">Move 0/0</div>
+              <button onclick="nextMove()" class="control-btn" id="nextBtn" title="Next">▶</button>
+              <button onclick="lastMove()" class="control-btn" title="End">⏭</button>
+            </div>
+          </div>
+
+          <!-- RIGHT: Sidelines Panel (ChessTempo style) -->
+          <div class="sidelines-panel">
+            <div class="sidelines-header">
+              <div class="sidelines-info">
+                <span class="sidelines-subtitle" id="panelSubtitle">Event • ECO • Date</span>
+              </div>
+              <button onclick="downloadPgn()" class="download-pgn-btn" title="Download PGN">
+                <span>⬇️</span>
+                <span>Download PGN</span>
+              </button>
+            </div>
+            
+            <div class="sidelines-scroll-container" id="movesScrollContainer">
+              <div class="sidelines-content" id="movesContent">
+                <!-- Moves and variations will be rendered here -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-quote">Powered by Pier Dreams</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" defer></script>
+  <script src="/js/custom-modals.js"></script>
+  <script src="/pages/exercises/daily-exercises.js?v=10.1"></script>
+
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+<script defer src="/js/admin-header.js"></script>
+<script src="/js/header-component.js" defer></script>
+</body>
+</html>

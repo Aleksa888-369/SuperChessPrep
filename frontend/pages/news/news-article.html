@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article - SuperChessPrep</title>
+  <link rel="icon" href="/images/circle-logo.png">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/pages/news/news.css">
+  <style>
+    /* YouTube Lazy Load & Error Styles */
+    .youtube-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      background: #0a0a0a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .youtube-container iframe,
+    .youtube-container .youtube-thumbnail,
+    .youtube-container .youtube-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .youtube-thumbnail {
+      object-fit: cover;
+      cursor: pointer;
+      transition: filter 0.3s ease;
+    }
+    
+    .youtube-thumbnail:hover {
+      filter: brightness(0.8);
+    }
+    
+    .youtube-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+      transition: transform 0.3s ease;
+    }
+    
+    .youtube-container:hover .youtube-play-btn {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    /* Fallback when embedding is disabled */
+    .youtube-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .youtube-fallback-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+    
+    .youtube-fallback h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: #ff8c00;
+    }
+    
+    .youtube-fallback p {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+    }
+    
+    .youtube-fallback-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ff0000;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .youtube-fallback-link:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+    }
+    
+    .youtube-fallback-link svg {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+<link rel="stylesheet" href="/css/core.min.css">
+  <script defer src="/js/config.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+
+  <div class="bg-animation"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo-section">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" onclick="window.location.href='/dashboard'">
+      </div>
+      <a href="/news" class="dashboard-button">
+        &#8592; Back to News
+      </a>
+    </div>
+  </header>
+
+  <!-- Article Container -->
+  <div class="article-container" id="articleContainer">
+    <div class="loading" id="loadingState">
+      <p>Loading article...</p>
+    </div>
+  </div>
+
+  <script>
+    // VERSION: 2024-12-20-v7 - YouTube Error Handling Edition
+    console.log('NEWS ARTICLE SCRIPT LOADED - VERSION 2024-12-20-v7');
+
+    // ============================================
+    // DEFAULT FALLBACK IMAGE
+    // ============================================
+    const DEFAULT_IMAGE = '/images/chess-default.avif';
+
+    // ============================================
+    // YOUTUBE HELPERS
+    // ============================================
+    function getYouTubeVideoId(url) {
+      if (!url) return null;
+      
+      const patterns = [
+        /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/
+      ];
+      
+      for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) {
+          console.log('✅ YouTube video ID extracted:', match[1]);
+          return match[1];
+        }
+      }
+      
+      return null;
+    }
+
+    function getYouTubeEmbedUrl(url) {
+      const videoId = getYouTubeVideoId(url);
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    }
+
+    function getYouTubeThumbnail(videoId) {
+      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+
+    function getYouTubeWatchUrl(videoId) {
+      return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+      const articleId = new URLSearchParams(window.location.search).get('id');
+      
+      if (!articleId) {
+        window.location.href = '/news';
+        return;
+      }
+
+      loadArticle(articleId);
+    });
+
+    // ============================================
+    // LOAD ARTICLE FROM API
+    // ============================================
+    async function loadArticle(articleId) {
+      const loadingState = document.getElementById('loadingState');
+      
+      try {
+        const response = await fetch(`/api/news/articles/${articleId}`);
+        const data = await response.json();
+
+        if (data.success && data.article) {
+          if (loadingState) loadingState.style.display = 'none';
+          displayArticle(data.article);
+        } else {
+          showError('Article not found');
+        }
+      } catch (error) {
+        Logger.error('Error loading article:', error);
+        showError('Error loading article');
+      }
+    }
+
+    // ============================================
+    // DISPLAY ARTICLE
+    // ============================================
+    function displayArticle(article) {
+      document.title = `${article.title || 'Article'} - SuperChessPrep`;
+      
+      const container = document.getElementById('articleContainer');
+      if (!container) return;
+      
+      // Create media HTML
+      let mediaHtml = '';
+      if (article.media_url) {
+        if (article.media_type === 'video') {
+          const videoId = getYouTubeVideoId(article.media_url);
+          if (videoId) {
+            // Lazy-load YouTube with thumbnail
+            const thumbnailUrl = getYouTubeThumbnail(videoId);
+            const watchUrl = getYouTubeWatchUrl(videoId);
+            mediaHtml = `
+              <div class="article-media">
+                <div class="youtube-container" id="youtubeContainer" data-video-id="${videoId}" data-watch-url="${watchUrl}">
+                  <img loading="lazy" src="${thumbnailUrl}" 
+                       alt="${article.title || 'Video'}" 
+                       class="youtube-thumbnail"
+                       onerror="this.src='${DEFAULT_IMAGE}'"
+                       onclick="loadYouTubePlayer('${videoId}', '${watchUrl}')">
+                  <div class="youtube-play-btn">
+                    <svg viewBox="0 0 68 48" width="68" height="48">
+                      <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+                      <path d="M 45,24 27,14 27,34" fill="#fff"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+        } else {
+          mediaHtml = `
+            <div class="article-media">
+              <img loading="lazy" src="${article.media_url}" alt="${article.title || 'Article'}" class="article-image" onerror="this.src='${DEFAULT_IMAGE}'">
+            </div>
+          `;
+        }
+      } else if (article.thumbnail_url) {
+        mediaHtml = `
+          <div class="article-media">
+            <img loading="lazy" src="${article.thumbnail_url}" alt="${article.title || 'Article'}" class="article-image" onerror="this.src='${DEFAULT_IMAGE}'">
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <article class="article-header">
+          <span class="article-category">${article.category || 'General'}</span>
+          <h1 class="article-title">${article.title || 'Untitled Article'}</h1>
+          
+          <div class="article-meta">
+            <div class="article-author">
+              <img loading="lazy" src="https://ui-avatars.com/api/?name=${encodeURIComponent(article.author_name || 'Author')}&background=ff8c00&color=fff" 
+                   alt="${article.author_name || 'Author'}" 
+                   class="article-author-pic">
+              <div class="article-author-info">
+                <span class="article-author-name">${article.author_name || 'Unknown Author'}</span>
+                <span class="article-author-role">${article.author_role || 'Chess Expert'}</span>
+              </div>
+            </div>
+            <div class="article-stats">
+              <span>📅 ${formatDate(article.published_at || article.created_at)}</span>
+              <span>👁 ${article.views || 0} views</span>
+            </div>
+          </div>
+        </article>
+
+        ${mediaHtml}
+
+        <div class="article-content">
+          ${formatContent(article.content)}
+        </div>
+
+        <a href="/news" class="back-to-news">← Back to All Articles</a>
+      `;
+    }
+
+    // ============================================
+    // LOAD YOUTUBE PLAYER (on click)
+    // ============================================
+    function loadYouTubePlayer(videoId, watchUrl) {
+      const container = document.getElementById('youtubeContainer');
+      if (!container) return;
+
+      // Create iframe
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.allowFullscreen = true;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.frameBorder = '0';
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+
+      // Clear container and add iframe
+      container.innerHTML = '';
+      container.appendChild(iframe);
+
+      // Listen for iframe load errors (embedding disabled)
+      // YouTube doesn't fire 'error' event, but we can detect via postMessage or timeout
+      setTimeout(() => {
+        checkYouTubeEmbedError(container, videoId, watchUrl);
+      }, 3000);
+    }
+
+    // ============================================
+    // CHECK FOR YOUTUBE EMBED ERRORS
+    // ============================================
+    function checkYouTubeEmbedError(container, videoId, watchUrl) {
+      // If we can't detect the error directly, we show a fallback link anyway
+      // Users can click it if video doesn't play
+      const iframe = container.querySelector('iframe');
+      if (!iframe) return;
+
+      // Add a small link below for users who can't see the video
+      const existingLink = container.parentElement.querySelector('.youtube-external-link');
+      if (!existingLink) {
+        const linkHtml = document.createElement('p');
+        linkHtml.className = 'youtube-external-link';
+        linkHtml.style.cssText = 'text-align:center;margin-top:1rem;font-size:0.9rem;color:#888;';
+        linkHtml.innerHTML = `Video not playing? <a href="${watchUrl}" target="_blank" rel="noopener" style="color:#ff8c00;">Watch on YouTube →</a>`;
+        container.parentElement.appendChild(linkHtml);
+      }
+    }
+
+    // ============================================
+    // SHOW YOUTUBE FALLBACK (when embedding fails)
+    // ============================================
+    function showYouTubeFallback(container, videoId, watchUrl) {
+      container.innerHTML = `
+        <div class="youtube-fallback">
+          <div class="youtube-fallback-icon">🎬</div>
+          <h3>Video Embedding Unavailable</h3>
+          <p>This video cannot be played here due to restrictions.</p>
+          <a href="${watchUrl}" target="_blank" rel="noopener" class="youtube-fallback-link">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+            </svg>
+            Watch on YouTube
+          </a>
+        </div>
+      `;
+    }
+
+    // ============================================
+    // UTILITY FUNCTIONS
+    // ============================================
+    function formatContent(content) {
+      if (!content || content.trim() === '') return '<p>No content available.</p>';
+      
+      return content.split('\n\n')
+        .map(p => p.trim())
+        .filter(p => p.length > 0)
+        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+        .join('');
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return 'Unknown date';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Unknown date';
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function showError(message) {
+      const container = document.getElementById('articleContainer');
+      if (container) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>Error</h3>
+            <p>${message}</p>
+            <a href="/news" class="back-to-news">← Back to All Articles</a>
+          </div>
+        `;
+      }
+    }
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+</body>
+</html>

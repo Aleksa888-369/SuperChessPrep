@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forum Topic - SuperChessPrep</title>
+  <link rel="icon" href="/images/circle-logo.png">
+  <!-- Custom Modals CSS -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 140, 0, 0.1);
+      border-left: 4px solid #ff8c00;
+      border-radius: 8px;
+    }
+
+    .header h1 {
+      color: #ff8c00;
+      font-size: 28px;
+    }
+
+    .btn-back {
+      padding: 10px 20px;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background: #ff7700;
+      transform: translateY(-2px);
+    }
+
+    .topic-info {
+      background: rgba(255, 140, 0, 0.05);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #ff8c00;
+    }
+
+    .topic-info h2 {
+      color: #ff8c00;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    .topic-meta {
+      font-size: 14px;
+      color: #999;
+      margin-top: 15px;
+    }
+
+    /* Post Creation Form */
+    .create-post-section {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 140, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .create-post-section h3 {
+      color: #ff8c00;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #ff8c00;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(255, 140, 0, 0.3);
+      border-radius: 6px;
+      color: #e0e0e0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #ff8c00;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .form-hint {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+
+    .btn-submit {
+      padding: 12px 24px;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background: #ff7700;
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Posts Section - Thread Style */
+    .posts-section {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .posts-section h3 {
+      color: #ff8c00;
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .thread-item {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border-left: 3px solid #ff8c00;
+      transition: all 0.3s ease;
+    }
+
+    .thread-item:hover {
+      background: rgba(0, 0, 0, 0.7);
+      border-left-width: 5px;
+    }
+
+    .thread-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .thread-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .thread-author-name {
+      color: #ff8c00;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .thread-date {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .thread-content {
+      color: #d0d0d0;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      max-height: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    .thread-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 140, 0, 0.1);
+    }
+
+    .thread-stats {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .thread-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .thread-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-view {
+      padding: 8px 16px;
+      background: #ff8c00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-view:hover {
+      background: #ff7700;
+      transform: translateY(-2px);
+    }
+
+    .btn-delete-post {
+      padding: 8px 16px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-delete-post:hover {
+      background: #dc2626;
+      transform: translateY(-2px);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .spinner {
+      border: 3px solid rgba(255, 140, 0, 0.2);
+      border-top: 3px solid #ff8c00;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid #ef4444;
+      color: #ff6b6b;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .topic-closed-notice {
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid #ef4444;
+      color: #ff6b6b;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+<link rel="stylesheet" href="/css/core.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 Topic Discussion</h1>
+      <button class="btn-back" onclick="history.back()">← Back</button>
+    </div>
+
+    <div id="loading" class="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p>Loading topic...</p>
+    </div>
+
+    <div id="error" class="error" style="display: none;"></div>
+
+    <div id="content" style="display: none;">
+      <div id="topicInfo" class="topic-info"></div>
+      
+      <!-- Post Creation Form -->
+      <div id="createPostSection" class="create-post-section" style="display: none;">
+        <h3>💬 Start New Discussion</h3>
+        <form id="createPostForm">
+          <div class="form-group">
+            <label for="postContent">Your Post <span style="color: #ef4444;">*</span></label>
+            <textarea 
+              id="postContent" 
+              placeholder="Share your thoughts, questions, or insights..."
+              maxlength="5000"
+              required></textarea>
+            <small class="form-hint">Minimum 10 characters, maximum 5000 characters</small>
+          </div>
+          <button type="submit" class="btn-submit">✉️ Create Post</button>
+        </form>
+      </div>
+
+      <div id="postsSection" class="posts-section"></div>
+    </div>
+  </div>
+
+  <!-- Load Custom Modals -->
+  <script src="/js/custom-modals.js"></script>
+
+  <!-- Load Auth -->
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+
+  <script>
+    // CONFIG
+    const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000' 
+    : '';  // prazan string for produkciju = relativni URL
+    const topicId = new URLSearchParams(window.location.search).get('id');
+    let currentTopic = null;
+    let currentUser = null;
+    let authToken = null;
+
+    console.log('=== FORUM TOPIC PAGE ===');
+    console.log('Topic ID:', topicId);
+    console.log('API Base:', API_BASE);
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', async () => {
+      console.log('📄 Page loaded');
+      
+      if (!topicId) {
+        showErrorDiv('No topic ID provided');
+        return;
+      }
+
+      // Check if Auth exists
+      if (typeof Auth === 'undefined') {
+        Logger.warn('⚠️ Auth not yet loaded, waiting...');
+        setTimeout(loadPage, 500);
+      } else {
+        loadPage();
+      }
+    });
+
+    async function loadPage() {
+      try {
+        console.log('🔍 Checking authentication...');
+        
+        if (!Auth.isLoggedIn()) {
+          showErrorDiv('Not logged in. Redirecting...');
+          setTimeout(() => window.location.href = '/login', 2000);
+          return;
+        }
+
+        console.log('✅ Authenticated');
+        
+        // Get current user
+        currentUser = Auth.getCurrentUser();
+        
+        // Get token
+        authToken = localStorage.getItem('auth_token')
+          || localStorage.getItem('accessToken')
+          || localStorage.getItem('session_token')
+          || localStorage.getItem('token');
+
+        if (!authToken) {
+          Logger.warn('⚠️ No token found');
+        } else {
+          console.log('✅ Token found');
+        }
+
+        // Load topic
+        await loadTopic();
+        
+        // Setup post form
+        setupPostForm();
+
+      } catch (err) {
+        Logger.error('❌ Error:', err);
+        showErrorDiv('Error: ' + err.message);
+      }
+    }
+
+    async function loadTopic() {
+      try {
+        console.log('📂 Loading topic...');
+        document.getElementById('loading').style.display = 'block';
+
+        // Get topic
+        const topicRes = await fetch(`${API_BASE}/api/forum/topics/${topicId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+          }
+        });
+
+        if (!topicRes.ok) {
+          throw new Error(`Failed to fetch topic: ${topicRes.status}`);
+        }
+
+        const topicData = await topicRes.json();
+        currentTopic = topicData.topic;
+        console.log('✅ Topic loaded:', currentTopic.title);
+
+        // Get posts
+        const postsRes = await fetch(`${API_BASE}/api/forum/topics/${topicId}/posts`, {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(authToken ? { 'Authorization': `Bearer ${authToken}` } : {})
+          }
+        });
+
+        if (!postsRes.ok) {
+          throw new Error(`Failed to fetch posts: ${postsRes.status}`);
+        }
+
+        const postsData = await postsRes.json();
+        console.log('✅ Posts loaded:', postsData.posts.length);
+
+        document.getElementById('loading').style.display = 'none';
+        renderTopic(currentTopic, postsData.posts || []);
+
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        Logger.error('❌ Load error:', err);
+        showErrorDiv('Error loading topic: ' + err.message);
+      }
+    }
+
+    function renderTopic(topic, posts) {
+      console.log('🎨 Rendering topic:', topic.title);
+
+      // Render topic info
+      document.getElementById('topicInfo').innerHTML = `
+        <h2>${escapeHtml(topic.title)}</h2>
+        ${topic.description ? `<p style="color: #999; margin-top: 10px;">${escapeHtml(topic.description)}</p>` : ''}
+        <div class="topic-meta">
+          <span>${topic.is_closed ? '🔒 Closed' : '🔓 Open'}</span>
+          <span> | Posts: ${topic.post_count}</span>
+          <span> | Created: ${new Date(topic.created_at).toLocaleDateString()}</span>
+        </div>
+      `;
+
+      // Remove any existing closed notice
+      const existingNotice = document.querySelector('.topic-closed-notice');
+      if (existingNotice) {
+        existingNotice.remove();
+      }
+
+      // Show post form only if topic is open
+      const createPostSection = document.getElementById('createPostSection');
+      if (topic.is_closed) {
+        createPostSection.style.display = 'none';
+        // Add closed notice before posts section
+        const notice = document.createElement('div');
+        notice.className = 'topic-closed-notice';
+        notice.textContent = '🔒 This topic is closed. New posts cannot be added.';
+        document.getElementById('content').insertBefore(notice, document.getElementById('postsSection'));
+      } else {
+        createPostSection.style.display = 'block';
+      }
+
+      // Render posts as threads
+      renderPostsAsThreads(posts);
+
+      document.getElementById('content').style.display = 'block';
+      console.log('✅ Rendering complete');
+    }
+
+    function renderPostsAsThreads(posts) {
+      const postsSection = document.getElementById('postsSection');
+      
+      if (posts.length > 0) {
+        postsSection.innerHTML = `
+          <h3>📝 Discussions (${posts.length})</h3>
+          ${posts.map(post => {
+            const canDelete = currentUser && (currentUser.id === post.user_id || currentUser.role === 'admin');
+            
+            return `
+              <div class="thread-item">
+                <div class="thread-header">
+                  <div class="thread-author">
+                    <span class="thread-author-name">${escapeHtml(post.username || 'Anonymous')}</span>
+                    <span class="thread-date">${new Date(post.created_at).toLocaleString()}</span>
+                  </div>
+                </div>
+                <div class="thread-content">${escapeHtml(post.content)}</div>
+                <div class="thread-footer">
+                  <div class="thread-stats">
+                    <span class="thread-stat">💬 ${post.comment_count || 0} comments</span>
+                  </div>
+                  <div class="thread-actions">
+                    <button class="btn-view" onclick="viewPost('${post.id}')">
+                      💬 View Discussion
+                    </button>
+                    ${canDelete ? `<button class="btn-delete-post" onclick="deletePost('${post.id}')">🗑️ Delete</button>` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        `;
+      } else {
+        postsSection.innerHTML = `
+          <h3>📝 Discussions (0)</h3>
+          <div class="empty">No discussions yet. Be the first to start one!</div>
+        `;
+      }
+    }
+
+    function setupPostForm() {
+      const form = document.getElementById('createPostForm');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          await handleCreatePost();
+        });
+      }
+    }
+
+    async function handleCreatePost() {
+      const content = document.getElementById('postContent').value.trim();
+      
+      if (content.length < 10) {
+        // ✅ Styled modal instead of alert()
+        if (typeof showWarning === 'function') {
+          await showWarning('Post content must be at least 10 characters');
+        } else {
+          alert('Post content must be at least 10 characters');
+        }
+        return;
+      }
+
+      if (!authToken) {
+        if (typeof showError === 'function') {
+          await showError('You must be logged in to post');
+        } else {
+          alert('You must be logged in to post');
+        }
+        return;
+      }
+
+      const submitBtn = document.querySelector('.btn-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Posting...';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/forum/topics/${topicId}/posts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({ content })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || errorData.error || 'Failed to create post');
+        }
+
+        const data = await response.json();
+        console.log('✅ Post created:', data);
+
+        // Clear form
+        document.getElementById('postContent').value = '';
+        
+        // Reload topic to show new post
+        await loadTopic();
+        
+        // ✅ Styled success modal
+        if (typeof showSuccess === 'function') {
+          await showSuccess('Post created successfully!');
+        } else {
+          alert('Post created successfully!');
+        }
+
+      } catch (err) {
+        Logger.error('❌ Error creating post:', err);
+        if (typeof showError === 'function') {
+          await showError('Error creating post: ' + err.message);
+        } else {
+          alert('Error: ' + err.message);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '✉️ Create Post';
+      }
+    }
+
+    function viewPost(postId) {
+      window.location.href = `/forum-post?id=${postId}`;
+    }
+
+    async function deletePost(postId) {
+      // ✅ Styled confirm modal
+      let confirmed = false;
+      
+      if (typeof customConfirm === 'function') {
+        confirmed = await customConfirm(
+          'Are you sure you want to delete this post?<br><br><strong>This will also delete all comments!</strong>',
+          'Delete Post',
+          {
+            confirmText: 'Delete',
+            cancelText: 'Cancel',
+            type: 'warning'
+          }
+        );
+      } else {
+        confirmed = confirm('Are you sure you want to delete this post? This will also delete all comments!');
+      }
+
+      if (!confirmed) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/api/forum/posts/${postId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || errorData.error || 'Failed to delete post');
+        }
+
+        // ✅ Styled success modal
+        if (typeof showSuccess === 'function') {
+          await showSuccess('Post deleted successfully!');
+        } else {
+          alert('Post deleted successfully!');
+        }
+        
+        await loadTopic();
+
+      } catch (err) {
+        Logger.error('❌ Error deleting post:', err);
+        if (typeof showError === 'function') {
+          await showError('Error deleting post: ' + err.message);
+        } else {
+          alert('Error: ' + err.message);
+        }
+      }
+    }
+
+    function showErrorDiv(msg) {
+      Logger.error(msg);
+      document.getElementById('error').textContent = msg;
+      document.getElementById('error').style.display = 'block';
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+</body>
+</html>

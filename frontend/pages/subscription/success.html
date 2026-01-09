@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Resource Hints for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://api.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Successful - SuperChessPrep</title>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #111, #1c1c1c);
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-container {
+      max-width: 600px;
+      padding: 60px 50px;
+      background: rgba(25, 25, 25, 0.9);
+      border: 2px solid #ff8c00;
+      border-radius: 30px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 50px rgba(255, 140, 0, 0.4);
+    }
+
+    .success-icon {
+      font-size: 80px;
+      margin-bottom: 30px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      color: #ff8c00;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(255, 140, 0, 0.5);
+    }
+
+    .success-message {
+      font-size: 18px;
+      color: #ffbfaa;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .info-box {
+      background: rgba(255, 140, 0, 0.1);
+      border: 1px solid rgba(255, 140, 0, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .info-box strong {
+      color: #ff8c00;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-box li {
+      padding: 10px 0;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+    }
+
+    .info-box li:last-child {
+      border-bottom: none;
+    }
+
+    .info-box li.updating {
+      color: #ffcc00;
+    }
+
+    .info-box li.done {
+      color: #00ff88;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #ff8c00, #ff6347);
+      color: white;
+      box-shadow: 0 5px 20px rgba(255, 140, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(255, 140, 0, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status-message {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .status-message.success {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      color: #00ff88;
+    }
+
+    .status-message.error {
+      background: rgba(255, 99, 71, 0.1);
+      border: 1px solid rgba(255, 99, 71, 0.3);
+      color: #ff6347;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .success-container {
+        padding: 40px 30px;
+      }
+
+      .success-title {
+        font-size: 32px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+<link rel="stylesheet" href="/css/core.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>
+  <!-- Logger fallback for inline scripts -->
+  <script>
+    if (typeof Logger === 'undefined') {
+      window.Logger = {
+        debug: function() {},
+        info: function() {},
+        warn: console.warn.bind(console, '[WARN]'),
+        error: console.error.bind(console, '[ERROR]'),
+        log: function() {}
+      };
+    }
+  </script>
+  <div class="success-container">
+    <div class="success-icon">🎉</div>
+    <h1 class="success-title">Payment Successful!</h1>
+    <p class="success-message">
+      Thank you for subscribing! Your account is being upgraded...
+    </p>
+    
+    <div class="info-box">
+      <strong>Activation Progress</strong>
+      <ul id="progressList">
+        <li id="step1">⏳ Verifying payment...</li>
+        <li id="step2">⏳ Updating subscription...</li>
+        <li id="step3">⏳ Refreshing your session...</li>
+      </ul>
+    </div>
+
+    <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+    <div class="button-group">
+      <a href="/dashboard" id="dashboardBtn" class="btn btn-primary" style="pointer-events: none; opacity: 0.6;">
+        <span class="spinner"></span> Activating...
+      </a>
+    </div>
+  </div>
+
+  <!-- Include auth-client.js for Auth.forceRefresh() -->
+  <script src="/js/auth-client.js"></script>
+  <script>
+    // Payment API URL
+    const PAYMENT_API_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:3004' 
+      : 'https://payments.superchessprep.com';
+
+    console.log('PAYMENT_API_URL:', PAYMENT_API_URL);
+
+    // UI elementi
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const statusMessage = document.getElementById('statusMessage');
+    const dashboardBtn = document.getElementById('dashboardBtn');
+
+    function updateStep(stepEl, status, text) {
+      const icons = {
+        pending: '⏳',
+        loading: '🔄',
+        done: '✅',
+        error: '❌'
+      };
+      stepEl.innerHTML = `${icons[status]} ${text}`;
+      stepEl.className = status === 'done' ? 'done' : (status === 'loading' ? 'updating' : '');
+    }
+
+    function showStatus(type, message) {
+      statusMessage.className = `status-message ${type}`;
+      statusMessage.textContent = message;
+      statusMessage.style.display = 'block';
+    }
+
+    function enableButton() {
+      dashboardBtn.innerHTML = 'Go to Dashboard';
+      dashboardBtn.style.pointerEvents = 'auto';
+      dashboardBtn.style.opacity = '1';
+    }
+
+    // ============================================
+    // REFRESH TOKEN USING AUTH-CLIENT.JS
+    // ============================================
+    async function refreshAuthToken() {
+      try {
+        console.log('Refreshing token using Auth.refreshWithJWT()...');
+        
+        // Koristi Auth.refreshWithJWT() jer is JWT jos uvek validan nakon placanja
+        const newToken = await Auth.refreshWithJWT();
+        
+        if (newToken) {
+          // Get updated user info
+          const user = Auth.getCurrentUser();
+          console.log('Token refreshed! New tier:', user?.subscription_tier);
+          return user?.subscription_tier || 'free';
+        } else {
+          Logger.warn('Auth.refreshWithJWT() returned null, trying forceRefresh...');
+          
+          // Fallback to forceRefresh which tries both methods
+          const fallbackToken = await Auth.forceRefresh();
+          if (fallbackToken) {
+            const user = Auth.getCurrentUser();
+            return user?.subscription_tier || 'free';
+          }
+          
+          return false;
+        }
+      } catch (error) {
+        Logger.error('Refresh token error:', error);
+        return false;
+      }
+    }
+
+    // ============================================
+    // CEKAJ DA SE SUBSCRIPTION AKTIVIRA
+    // ============================================
+    async function waitForSubscriptionActivation() {
+      const maxAttempts = 15;
+      const baseDelay = 1000;
+
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        const delay = Math.min(attempt * baseDelay, 5000);
+        console.log(`Checking subscription (attempt ${attempt}/${maxAttempts})...`);
+
+        try {
+          const token = localStorage.getItem('auth_token');
+          if (!token) {
+            Logger.error('No auth token found');
+            return null;
+          }
+
+          const response = await fetch(`${PAYMENT_API_URL}/api/subscription/status`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            cache: 'no-store'
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const tier = data.subscription?.tier || 'free';
+
+            if (tier !== 'free') {
+              console.log('Subscription activated:', tier);
+              return tier;
+            }
+          }
+
+          console.log(`Not ready yet, waiting ${delay}ms...`);
+        } catch (error) {
+          Logger.error(`Check failed:`, error);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+
+      Logger.warn('Max attempts reached');
+      return null;
+    }
+
+    // ============================================
+    // GLAVNI FLOW
+    // ============================================
+    async function activateSubscription() {
+      try {
+        // Step 1: Verifikuj payment
+        updateStep(step1, 'loading', 'Verifying payment...');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        updateStep(step1, 'done', 'Payment verified!');
+
+        // Step 2: Cekaj da se subscription aktivira u bazi
+        updateStep(step2, 'loading', 'Updating subscription...');
+        const newTier = await waitForSubscriptionActivation();
+        
+        if (newTier) {
+          updateStep(step2, 'done', `Subscription updated to ${newTier.toUpperCase()}!`);
+        } else {
+          updateStep(step2, 'done', 'Subscription updated!');
+        }
+
+        // Step 3: REFRESH TOKEN USING AUTH-CLIENT!
+        updateStep(step3, 'loading', 'Refreshing your session...');
+        const refreshedTier = await refreshAuthToken();
+        
+        if (refreshedTier && refreshedTier !== 'free') {
+          updateStep(step3, 'done', `Session updated! Tier: ${refreshedTier.toUpperCase()}`);
+          showStatus('success', `Your ${refreshedTier.toUpperCase()} subscription is now active!`);
+        } else {
+          updateStep(step3, 'done', 'Session refreshed!');
+          showStatus('success', 'Your subscription is now active!');
+        }
+
+        // Omoguci button
+        enableButton();
+
+        // Auto-redirect nakon 3 sekunde
+        setTimeout(() => {
+          console.log('Auto-redirecting to dashboard...');
+          window.location.href = '/dashboard';
+        }, 3000);
+
+      } catch (error) {
+        Logger.error('Activation error:', error);
+        showStatus('error', 'Something went wrong. Please try refreshing the page.');
+        enableButton();
+      }
+    }
+
+    // Pokreni when se stranica ucita
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log('Success page loaded, starting activation...');
+      
+      // Proveri da li is Auth ucitan
+      if (typeof Auth === 'undefined') {
+        Logger.error('Auth client not loaded! Reloading page...');
+        setTimeout(() => location.reload(), 1000);
+        return;
+      }
+      
+      activateSubscription();
+    });
+  </script>
+<script src="/js/mobile-navigation.js" defer></script>
+</body>
+</html>

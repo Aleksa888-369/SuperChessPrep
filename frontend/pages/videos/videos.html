@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style id="drawer-fix">.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <!-- TIER 1 OPTIMIZATION: Resource Hints for faster API connections -->
+  <link rel="preconnect" href="https://videos.superchessprep.com">
+  <link rel="preconnect" href="https://payments.superchessprep.com">
+  <link rel="preconnect" href="https://cdn.cloudflare.com">
+  <link rel="dns-prefetch" href="https://videos.superchessprep.com">
+  <link rel="dns-prefetch" href="https://payments.superchessprep.com">
+  
+  <meta charset="UTF-8">
+  <style id="critical-css">*,::after,::before{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;-webkit-text-size-adjust:100%}body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111;color:#fff;line-height:1.5;min-height:100vh}.header{background:rgba(0,0,0,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,140,0,.3);padding:12px 30px;position:sticky;top:0;z-index:1000}.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}.logo-container{display:flex;align-items:center;text-decoration:none}.circle-logo{width:50px;height:50px;border-radius:50%}.hero,.page-header{min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(26,26,46,.95))}.page-title,h1{font-family:Playfair Display,serif;font-size:clamp(2rem,5vw,3.5rem);color:#ff8c00;margin-bottom:20px}.loading{text-align:center;padding:40px;color:#888}.loader{width:40px;height:40px;border:3px solid rgba(255,140,0,.2);border-top-color:#ff8c00;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 15px}@keyframes spin{to{transform:rotate(360deg)}}.course-card,.card{background:rgba(30,30,30,.8);border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}.course-card:hover,.card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(255,140,0,.2)}main{min-height:60vh}:root{--primary:#ff8c00;--bg-dark:#111;--text-white:#fff;--text-gray:#888}.mobile-drawer{position:fixed;top:0;left:0;transform:translateX(-100%);visibility:hidden;z-index:9999}.mobile-drawer.open{transform:translateX(0);visibility:visible}.mobile-drawer-overlay{position:fixed;top:0;left:0;width:100%;height:100%;opacity:0;visibility:hidden;z-index:9998}.mobile-drawer-overlay.open{opacity:1;visibility:visible}</style>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f39c12">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+  <meta property="og:title" content="Chess Video Lessons - SuperChessPrep">
+  <meta property="og:description" content="Learn from grandmaster analysis and strategic concepts.">
+  <meta property="og:image" content="https://www.superchessprep.com/images/circle-logo.png">
+  <meta property="og:url" content="https://www.superchessprep.com/videos">
+  <meta property="og:type" content="website">
+  <meta name="description" content="Chess Video Lessons - Learn from grandmaster analysis, opening theory, and strategic concepts. Premium video content for all skill levels.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Lessons - SuperChessPrep</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/pages/videos/videos.css">
+  <script defer src="/js/config.js"></script>
+  <script src="/js/auth-client.js"></script>
+<link rel="stylesheet" href="/css/core.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js" integrity="sha512-H+rglffZ6f5gF7UJgvH4Naa+fGCgjrHKMgoFOGmcPTRwR6oILo5R+gtzNrpDp7iMV3udbymBVjkeZGNz1Em4rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/safe-html.js"></script>
+  <script src="/js/logger.js"></script>
+  <script src="/js/event-manager.js"></script>
+  <script src="/js/performance-utils.js"></script>
+</head>
+<body>  <!-- Header -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="/dashboard" class="logo-container">
+        <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="circle-logo" width="50" height="50">
+        <div class="brand-text">
+          <span class="brand-name">SuperChessPrep</span>
+          <span class="brand-tagline">ONE STEP AHEAD. ALWAYS</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <a href="/dashboard" class="dashboard-button">&larr; Back to Dashboard</a>
+      </div>
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+<!-- Mobile Drawer -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<nav class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+  <!-- Header -->
+  <div class="drawer-header">
+    <img src="/images/circle-logo.webp" alt="SuperChessPrep" class="drawer-logo">
+    <span class="drawer-title">SuperChessPrep</span>
+  </div>
+  
+  <!-- User Info (only when logged in) -->
+  <div class="drawer-user" id="drawerUserSection" style="display: none;">
+    <div class="drawer-user-info">
+      <div class="drawer-avatar">👤</div>
+      <div>
+        <div class="drawer-username" id="drawerUsername">Guest</div>
+        <div class="drawer-email" id="drawerEmail"></div>
+      </div>
+    </div>
+    <div class="drawer-tier-badge" id="drawerTierBadge">
+      <span id="drawerTierIcon">⭐</span>
+      <span id="drawerTierText">Free</span>
+    </div>
+  </div>
+  
+  <!-- Navigation (only when logged in) -->
+  <div class="drawer-nav" id="drawerNavSection" style="display: none;">
+    <a href="/" class="drawer-nav-item" data-page="home"><span class="drawer-nav-icon">🏠</span>Home</a>
+    <a href="/dashboard" class="drawer-nav-item" data-page="dashboard"><span class="drawer-nav-icon">📊</span>Dashboard</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/all-courses" class="drawer-nav-item" data-page="courses"><span class="drawer-nav-icon">📚</span>Courses</a>
+    <a href="/videos" class="drawer-nav-item" data-page="videos"><span class="drawer-nav-icon">🎬</span>Video Lessons</a>
+    <a href="/daily-exercises" class="drawer-nav-item" data-page="exercises"><span class="drawer-nav-icon">♟️</span>Daily Exercises</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/community" class="drawer-nav-item" data-page="forum"><span class="drawer-nav-icon">💬</span>Community Forum</a>
+    <a href="/news" class="drawer-nav-item" data-page="news"><span class="drawer-nav-icon">📰</span>News & Novelties</a>
+    <div class="drawer-nav-divider"></div>
+    <a href="/shop" class="drawer-nav-item" data-page="shop"><span class="drawer-nav-icon">💎</span>Upgrade Plan</a>
+  
+      <!-- Admin Section (only for admins) -->
+      <div id="drawerAdminSection" style="display: none;">
+        <div class="drawer-nav-divider" style="background: rgba(239, 68, 68, 0.3);"></div>
+        <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+      </div>
+    </div>
+    <a href="/admin" class="drawer-nav-item admin-item" data-page="admin"><span class="drawer-nav-icon">⚙️</span>Admin Panel</a>
+  </div>
+  
+  <!-- Login Section (only when NOT logged in) -->
+  <div class="drawer-login-section" id="drawerLoginSection" style="display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 40px 20px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🔐</div>
+    <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">Welcome!</h3>
+    <p style="color: #888; font-size: 14px; margin-bottom: 24px;">Sign in to access all features</p>
+    <a href="/login" class="drawer-login-btn" style="width: 100%; margin-bottom: 12px;">
+      <span>🔑</span> Login
+    </a>
+    <a href="/register" class="drawer-login-btn" style="width: 100%; background: rgba(255,140,0,0.1); border: 1px solid rgba(255,140,0,0.3);">
+      <span>✨</span> Create Account
+    </a>
+  </div>
+  
+  <!-- Logout (only when logged in) -->
+  <div class="drawer-footer">
+    <button class="drawer-logout" id="drawerLogoutBtn" style="display: none;" onclick="handleMobileLogout()">
+      <span>🚪</span> Logout
+    </button>
+  </div>
+</nav>
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">🎬 Video Lessons</h1>
+      <p class="page-subtitle">Master chess with premium video content from top coaches</p>
+    </div>
+
+    <!-- User Tier Info Banner -->
+    <div class="tier-info-banner" id="tierInfoBanner">
+      <div class="tier-info-content">
+        <div class="tier-info-icon" id="tierInfoIcon">💎</div>
+        <div class="tier-info-text">
+          <h3 id="tierTitle">Subscription Tier: <span id="currentTier">Free</span></h3>
+          <p id="tierDescription">Upgrade to access premium video content</p>
+        </div>
+        <a href="/subscription" class="upgrade-btn" id="upgradeBtn">
+          <span>←'</span>
+          <span>Upgrade Now</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="search-box">
+        <!-- REMOVED onkeyup - now using debounced event listener in JS -->
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Search videos...">
+      </div>
+      
+      <div class="filter-controls">
+        <select id="filterTier" class="filter-select" onchange="filterVideos()">
+          <option value="">All Tiers</option>
+          <option value="basic">Basic</option>
+          <option value="premium">Premium</option>
+          <option value="elite">Elite</option>
+        </select>
+        
+        <select id="sortBy" class="filter-select" onchange="sortVideos()">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="title">Title (A-Z)</option>
+        </select>
+
+        <button onclick="resetFilters()" class="reset-btn">
+          <span>↻</span>
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingContainer" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading videos...</p>
+    </div>
+
+    <!-- Videos Grid -->
+    <div class="videos-grid" id="videosGrid" style="display: none;">
+      <!-- Populated by JavaScript -->
+    </div>
+    <!-- Pagination Controls -->
+    <div class="pagination-container" id="paginationContainer" style="display: none;">
+      <button class="pagination-btn" id="prevBtn" onclick="goToPreviousPage()" disabled>
+        <span>←</span> Previous
+      </button>
+      <div class="pagination-info">
+        Page <span id="currentPageDisplay">1</span> of <span id="totalPagesDisplay">1</span>
+      </div>
+      <button class="pagination-btn" id="nextBtn" onclick="goToNextPage()">
+        Next <span>→</span>
+      </button>
+    </div>
+
+
+    <!-- No Results -->
+    <div id="noResults" class="no-results" style="display: none;">
+      <div class="no-results-icon">🔹</div>
+      <h2>No videos found</h2>
+      <p>Try adjusting your filters or search terms</p>
+    </div>
+
+    <!-- Empty State (No Videos at All) -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+      <div class="empty-icon">🎬</div>
+      <h2>No videos available yet</h2>
+      <p>Check back soon for new video lessons!</p>
+    </div>
+
+  </main>
+
+  <!-- Video Player Modal -->
+  <div id="videoModal" class="modal video-modal" style="display: none;">
+    <div class="modal-backdrop" onclick="closeVideoPlayer()"></div>
+    <div class="modal-content video-modal-content">
+      <div class="modal-header">
+        <h3 id="videoModalTitle">Video Title</h3>
+        <button onclick="closeVideoPlayer()" class="close-btn">✕</button>
+      </div>
+      
+      <div class="video-player-container">
+        <!-- TIER 1 OPTIMIZATION: preload="none" prevents automatic video loading -->
+        <!-- Video only loads when user clicks play button -->
+        <video 
+          id="videoPlayer" 
+          controls 
+          controlsList="nodownload"
+          preload="none"
+          playsinline>
+          <source id="videoSource" src="" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+      <div class="video-details">
+        <p id="videoModalDescription">Video description goes here...</p>
+        <div class="video-meta-info">
+          <span class="video-tier-badge" id="videoModalTier"></span>
+          <span class="video-date" id="videoModalDate"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upgrade Required Modal -->
+  <div id="upgradeModal" class="modal custom-alert-modal" style="display: none;">
+    <div class="modal-content custom-alert-content">
+      <div class="alert-icon upgrade-icon">🔒</div>
+      <div class="alert-title">Upgrade Required</div>
+      <div class="alert-message" id="upgradeMessage">
+        This video requires a Premium subscription to access.
+      </div>
+      <div class="modal-actions">
+        <button onclick="closeUpgradeModal()" class="btn-secondary">Cancel</button>
+        <a href="/subscription" class="btn-primary">Upgrade Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div id="customAlertModal" class="modal custom-alert-modal" style="display: none;">
+    <div class="modal-content custom-alert-content">
+      <div class="alert-icon" id="alertIcon">ℹ️</div>
+      <div class="alert-title" id="alertTitle">Alert</div>
+      <div class="alert-message" id="alertMessage">Message goes here</div>
+      <button onclick="closeCustomAlert()" class="alert-btn">OK</button>
+    </div>
+  </div>
+
+  <script src="/js/custom-modals.js"></script>
+  <script src="/pages/videos/videos.js?v=5"></script>
+
+<script src="/js/mobile-navigation.js" defer></script>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation">
+  <a href="/" class="bottom-nav-item" data-page="home">
+    <span class="bottom-nav-icon">🏠</span>
+    <span class="bottom-nav-label">Home</span>
+  </a>
+  <a href="/all-courses" class="bottom-nav-item" data-page="courses">
+    <span class="bottom-nav-icon">📚</span>
+    <span class="bottom-nav-label">Courses</span>
+  </a>
+  <a href="/daily-exercises" class="bottom-nav-item bottom-nav-fab" data-page="exercises">
+    <span class="bottom-nav-icon">♟️</span>
+  </a>
+  <a href="/community" class="bottom-nav-item" data-page="forum">
+    <span class="bottom-nav-icon">💬</span>
+    <span class="bottom-nav-label">Forum</span>
+  </a>
+  <a href="/dashboard" class="bottom-nav-item" data-page="dashboard">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Profile</span>
+  </a>
+</nav>
+
+<script defer src="/js/admin-header.js"></script>
+<script src="/js/header-component.js" defer></script>
+</body>
+</html
